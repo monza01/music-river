@@ -1,23 +1,52 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+
+import Discover from "@/views/discover/Discover";
+import DiscLists from "@/views/discLists/DiscLists";
+import PrivateFM from "@/views/privateFM/PrivateFM";
+import Rank from "@/views/rank/Rank";
+import Recommend from "@/views/recommend/Recommend";
+
+import Profile from "@/views/profile/Profile";
+
+import Player from "@/views/player/Player";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home
+    redirect: "/discover"
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/discover",
+    component: Discover,
+    children: [
+      {
+        path: "disc-lists",
+        component: DiscLists
+      },
+      {
+        path: "privateFM",
+        component: PrivateFM
+      },
+      {
+        path: "rank",
+        component: Rank
+      },
+      {
+        path: "recommend",
+        component: Recommend
+      }
+    ]
+  },
+  {
+    path: "/profile",
+    component: Profile
+  },
+  {
+    path: "/player",
+    component: Player
   }
 ];
 

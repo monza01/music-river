@@ -1,0 +1,32 @@
+@import "variables.scss";
+
+body,
+html {
+  line-height: 1;
+  font-family: -apple-system,Helvetica,sans-serif;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  background: $white;
+  color: $black;
+}
+
+html{
+  font-size:26.666vw;
+}
+
+@media screen and (min-width: 560px) {
+  html {
+    font-size: 149px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  html {
+    font-size: 100px;
+  }
+}
+
+body{
+  font-size: $font-size-m;
+}
+
