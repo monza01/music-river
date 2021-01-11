@@ -1,10 +1,56 @@
 import axios from "axios";
+const timeStamp = () => {
+  return new Date().getTime();
+};
 
-export default function(config) {
-  const instance = axios.create({
-    baseURL: "https://autumnfish.cn",
-    timeout: 10000,
-    withCredentials: true
-  });
-  return instance(config);
-}
+const instance = axios.create({
+  baseURL: "https://autumnfish.cn",
+  timeout: 10000,
+  withCredentials: true
+});
+instance.interceptors.request.use(
+  config => {
+    if (config.method === "get") {
+      config.params = {
+        ...config.params,
+        timestamp: timeStamp()
+      };
+    } else if (config.method === "post") {
+      config.data = {
+        ...config.data,
+        timestamp: timeStamp()
+      };
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+instance.interceptors.response.use(
+  response => {
+    if (response.status !== 200) {
+      switch (response.data.code) {
+        case 301: //用户未登录
+          console.log(response.data.msg);
+          break;
+        default:
+          console.log(response.data.msg);
+          break;
+      }
+      return Promise.reject(response);
+    } else {
+      return response.data;
+    }
+  },
+  error => {
+    if (error.response) {
+      const res = error.response.data;
+      return Promise.reject(res);
+    } else {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export default instance;

@@ -1,9 +1,18 @@
 import Vue from "vue";
-import App from "./App.vue";
-import store from "./store";
+import VueLazyLoad from "vue-lazyload";
 import router from "./router";
-
+import store from "./store";
+import App from "./App.vue";
+import Loader from "@/components/common/loader/Loader";
 import "@/assets/style/index.scss";
+
+Vue.use(VueLazyLoad);
+Vue.component("Loader", Loader);
+Vue.directive("focus", {
+  inserted: function(el) {
+    el.focus();
+  }
+});
 
 Vue.config.productionTip = false;
 

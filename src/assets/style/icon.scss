@@ -25,6 +25,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-play:before {
+  content: "\e901";
+}
+.icon-dots-three-vertical:before {
+  content: "\e902";
+}
+.icon-headphones:before {
+  content: "\e900";
+}
+.icon-report:before {
+  content: "\e905";
+}
 .icon-search:before {
   content: "\f002";
 }
@@ -34,16 +46,26 @@
 .icon-list:before {
   content: "\f03a";
 }
-.icon-music:before {
-  content: "\f001";
-}
 .icon-indent:before {
   content: "\f03c";
 }
-.icon-list-ol:before {
-  content: "\f0cb";
+.icon-angle-right:before {
+  content: "\f105";
 }
-.icon-headphones:before {
-  content: "\e900";
+.icon-play-circle:before {
+  content: "\f144";
 }
+.icon-exchange:before {
+  content: "\f0ec";
+}
+.icon-angle-left:before {
+  content: "\f104";
+}
+.icon-angle-down:before {
+  content: "\f107";
+}
+.icon-cancel:before {
+  content: "\e903";
+}
+
 

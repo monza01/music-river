@@ -1,36 +1,39 @@
 <template>
-  <swiper
-    class="swiper slider"
-    :options="swiperOption"
-    @slideChange="slideChange"
-    ref="mySwiper"
-  >
-    <swiper-slide v-for="banner in banners" :key="banner.id">
-      <a :href="banner.url"
-        ><img class="slider-img" :src="banner.pic" alt="" /> </a
-    ></swiper-slide>
-
-    <template v-slot:pagination>
-      <div class="swiper-pagination"></div>
-    </template>
-  </swiper>
+  <div class="banner-wrapper">
+    <swiper
+      v-if="banners.length"
+      class="swiper slider"
+      :options="swiperOption"
+      @slideChange="slideChange"
+      ref="mySwiper"
+    >
+      <swiper-slide v-for="banner in banners" :key="banner.id">
+        <a :href="banner.url"
+          ><img class="slider-img" :src="banner.pic" alt="" /> </a
+      ></swiper-slide>
+      <template v-slot:pagination>
+        <div class="swiper-pagination"></div>
+      </template>
+    </swiper>
+  </div>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
-
 export default {
-  name: "swiper-example-pagination",
-  components: {
-    Swiper,
-    SwiperSlide
-  },
+  name: "Slider",
   props: {
     banners: {
       type: Array,
-      default: null
+      default: () => {
+        return [];
+      }
     }
+  },
+  components: {
+    Swiper,
+    SwiperSlide
   },
   data() {
     return {
@@ -43,13 +46,14 @@ export default {
         autoplay: {
           disableOnInteraction: false,
           delay: 5000
-        }
+        },
+        loop: true
       }
     };
   },
   methods: {
     slideChange() {
-      let activeIndex = this.$refs.mySwiper.$swiper.activeIndex;
+      const activeIndex = this.$refs.mySwiper.$swiper.realIndex;
       this.$emit("sliderChange", activeIndex);
     }
   }
@@ -57,6 +61,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.banner-wrapper {
+  height: 1.55rem;
+}
 .slider {
   a {
     display: block;
@@ -72,12 +79,13 @@ export default {
 </style>
 
 <style lang="scss">
+@import "~@/assets/style/variables.scss";
 .my-bullet {
   width: 0.1rem;
   height: 0.02rem;
   display: inline-block;
   border-radius: 0.01rem;
-  background: #a2a2a2;
+  background: $gray;
   margin: -0.07rem 0.02rem;
 }
 .my-bullet-active {

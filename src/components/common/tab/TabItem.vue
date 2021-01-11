@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     nav() {
-      this.$router.replace(this.link).catch(err => err);
+      this.$router.push(this.link).catch(err => err);
     }
   },
   computed: {
@@ -38,16 +38,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "~@/assets/style/variables.scss";
+
 .tab-item {
   flex: 1;
   text-align: center;
-  font-size: 0.1rem;
-  color: rgba(133, 139, 145, 0.6);
+  font-size: $font-size-xs;
+  color: $gray;
   .icon {
     margin: 4px auto;
     width: 0.25rem;
     height: 0.25rem;
-    font-size: 0.2rem;
+    font-size: $font-size-xl;
     border-radius: 50%;
     transition: font-size 0.1s;
     :nth-child(1) {
@@ -56,12 +58,12 @@ export default {
     }
   }
   .text-active {
-    color: #46a3ab;
+    color: $theme;
   }
   .icon-active {
-    background-image: linear-gradient(135deg, #46a3ab, #b2dfdb);
-    font-size: 0.15rem;
-    color: white;
+    background-image: linear-gradient(135deg, $theme, $theme-lighter);
+    font-size: $font-size-s;
+    color: $white;
   }
 }
 </style>

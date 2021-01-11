@@ -1,31 +1,30 @@
 <template>
   <div id="tab-bar">
-    <TabItem link="/discover">
+    <tab-item link="/discover">
       <template v-slot:icon>
         <div class="icon-headphones"></div>
       </template>
       <template v-slot:text>
         <p>发现</p>
       </template>
-    </TabItem>
+    </tab-item>
 
     <div>
       <img
-        @click="nav"
         class="record"
-        src="~@/assets/images/record-player.png"
+        src="~@/assets/images/icon/record-player.png"
         alt="正在播放"
       />
     </div>
 
-    <TabItem link="/profile">
+    <tab-item link="/profile">
       <template v-slot:icon>
         <span class="icon-user"></span>
       </template>
       <template v-slot:text>
         <p>我的</p>
       </template>
-    </TabItem>
+    </tab-item>
   </div>
 </template>
 
@@ -35,25 +34,22 @@ export default {
   name: "tabBar",
   components: {
     TabItem
-  },
-  methods: {
-    nav() {
-      this.$router.replace("/player").catch(err => err);
-    }
   }
 };
 </script>
 
 <style scoped lang="scss">
+@import "~@/assets/style/variables.scss";
+
 #tab-bar {
-  display: flex;
   position: fixed;
-  max-width: 1024px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
+  display: flex;
+  width: 100%;
+  max-width: 768px;
   bottom: 0;
-  height: 0.49rem;
+  height: 0.6rem;
+  background-color: $white;
+  z-index: 999;
   .record {
     transform: translateY(-5px);
     width: 0.5rem;

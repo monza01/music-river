@@ -1,15 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Discover from "@/views/discover/Discover";
-import DiscLists from "@/views/discLists/DiscLists";
-import PrivateFM from "@/views/privateFM/PrivateFM";
-import Rank from "@/views/rank/Rank";
-import Recommend from "@/views/recommend/Recommend";
-
-import Profile from "@/views/profile/Profile";
-
-import Player from "@/views/player/Player";
+import Discover from "@/views/Discover";
+import Profile from "@/views/Profile";
+import Login from "@/views/Login";
 
 Vue.use(VueRouter);
 
@@ -21,39 +15,37 @@ const routes = [
   {
     path: "/discover",
     component: Discover,
-    children: [
-      {
-        path: "disc-lists",
-        component: DiscLists
-      },
-      {
-        path: "privateFM",
-        component: PrivateFM
-      },
-      {
-        path: "rank",
-        component: Rank
-      },
-      {
-        path: "recommend",
-        component: Recommend
-      }
-    ]
+    meta: {
+      index: 0
+    }
   },
   {
     path: "/profile",
-    component: Profile
+    component: Profile,
+    meta: {
+      index: 0
+    }
   },
   {
-    path: "/player",
-    component: Player
+    path: "/login",
+    component: Login,
+    meta: {
+      index: 1
+    }
   }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  }
 });
 
 export default router;
