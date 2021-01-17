@@ -4,8 +4,8 @@ export function getBanner() {
   return request.get("/banner?type=2");
 }
 
-export function getRecommendSongList() {
-  return request.get("/personalized");
+export function getRecommendSongList(params) {
+  return request.get("/personalized", { params });
 }
 
 export function getChosenSongList(params) {

@@ -4,7 +4,8 @@ const timeStamp = () => {
 };
 
 const instance = axios.create({
-  baseURL: "https://autumnfish.cn",
+  // baseURL: "https://autumnfish.cn",
+  baseURL: "http://10.131.1.30:3000",
   timeout: 10000,
   withCredentials: true
 });
@@ -16,9 +17,9 @@ instance.interceptors.request.use(
         timestamp: timeStamp()
       };
     } else if (config.method === "post") {
+      config.url += `?timestamp=${timeStamp()}`;
       config.data = {
-        ...config.data,
-        timestamp: timeStamp()
+        ...config.data
       };
     }
     return config;
@@ -30,14 +31,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     if (response.status !== 200) {
-      switch (response.data.code) {
-        case 301: //用户未登录
-          console.log(response.data.msg);
-          break;
-        default:
-          console.log(response.data.msg);
-          break;
-      }
+      console.log(response.data.msg);
       return Promise.reject(response);
     } else {
       return response.data;

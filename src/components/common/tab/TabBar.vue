@@ -47,9 +47,11 @@ export default {
   width: 100%;
   max-width: 768px;
   bottom: 0;
-  height: 0.6rem;
+  height: 0.5rem;
   background-color: $white;
   z-index: 999;
+  transform: translateZ(2px);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
   .record {
     transform: translateY(-5px);
     width: 0.5rem;

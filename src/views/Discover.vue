@@ -1,38 +1,45 @@
 <template>
-  <div class="discover" ref="discover">
-    <div class="head">
-      <header-of-discover
-        class="header"
-        @loginClicked="loginClicked"
-      ></header-of-discover>
-      <img class="header-bg" :src="currentImgURL" width="100%" alt="" />
-      <carousel
-        class="carousel"
-        :banners="banners"
-        @sliderChange="getCurrentImgURL"
-      ></carousel>
+  <scroll
+    :data="rankPlayList.tracks"
+    :listenScroll="listenScroll"
+    @scroll="handleScroll"
+    ref="scrollWrapper"
+  >
+    <div class="discover " ref="discover">
+      <div class="head">
+        <header-of-discover
+          class="header"
+          @loginClicked="loginClicked"
+        ></header-of-discover>
+        <img class="header-bg" :src="currentImgURL" width="100%" alt="" />
+        <carousel
+          class="carousel"
+          :banners="banners"
+          @sliderChange="getCurrentImgURL"
+        ></carousel>
+      </div>
+      <navigation class="nav"></navigation>
+      <div class="line"></div>
+      <chosen-song-list
+        :tags="tags"
+        :chosenSongList="chosenSongList"
+        @tagClicked="changeTag"
+      ></chosen-song-list>
+      <rank-summary class="rank-summary" :rankData="rankData"></rank-summary>
+      <recommend-song-list
+        ref="recommendSL"
+        :recommendSongList="recommendSongList"
+      ></recommend-song-list>
+      <recommend-rank
+        ref="bill-board"
+        class="billboard"
+        :rankList="rankPlayList"
+      ></recommend-rank>
+      <div v-if="rankPlayList.tracks" class="bottom">
+        <span class="refresh" @click="refresh">换一批新内容</span>
+      </div>
     </div>
-    <navigation class="nav"></navigation>
-    <div class="line"></div>
-    <chosen-song-list
-      :tags="tags"
-      :chosenSongList="chosenSongList"
-      @tagClicked="changeTag"
-    ></chosen-song-list>
-    <rank-summary class="rank-summary" :rankData="rankData"></rank-summary>
-    <recommend-song-list
-      ref="recommendSL"
-      :recommendSongList="recommendSongList"
-    ></recommend-song-list>
-    <recommend-rank
-      ref="bill-board"
-      class="billboard"
-      :rankList="rankPlayList"
-    ></recommend-rank>
-    <div v-if="rankPlayList.tracks" class="bottom">
-      <span class="refresh" @click="refresh">换一批新内容</span>
-    </div>
-  </div>
+  </scroll>
 </template>
 
 <script>
@@ -44,6 +51,7 @@ import {
 } from "@/api/discover";
 import { getPlaylist } from "@/api/common";
 import { randomNum } from "@/utils/utils";
+import Scroll from "@/components/common/scroll/Scroll";
 import HeaderOfDiscover from "@/components/discover/headerOfDiscover";
 import Carousel from "@/components/discover/Carousel";
 import Navigation from "@/components/discover/Navigation";
@@ -55,6 +63,7 @@ import RecommendRank from "@/components/discover/recommendRank";
 export default {
   name: "Discover",
   components: {
+    Scroll,
     HeaderOfDiscover,
     Carousel,
     Navigation,
@@ -75,7 +84,8 @@ export default {
       rankData: [],
       rankPlayList: {},
       flag1: false,
-      flag2: false
+      flag2: false,
+      listenScroll: true
     };
   },
   created() {
@@ -93,13 +103,15 @@ export default {
       });
     },
     getCurrentImgURL(index) {
-      clearTimeout(timer);
+      if (timer) {
+        clearTimeout(timer);
+      }
       const timer = setTimeout(() => {
         this.currentImgURL = this.banners[index].pic;
       }, 300);
     },
     getRecommendSongList() {
-      getRecommendSongList().then(res => {
+      getRecommendSongList({ limit: 12 }).then(res => {
         this.recommendSongList = res.result;
       });
     },
@@ -128,21 +140,17 @@ export default {
         this.rankPlayList = res.playlist;
       });
     },
-    windowScroll() {
-      let scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      if (scrollTop >= 70 && !this.flag1) {
+    handleScroll(pos) {
+      if (pos.y <= -90 && !this.flag1) {
         this.flag1 = true;
         this.getRecommendSongList();
       }
-      if (scrollTop >= 400 && !this.flag2) {
+      if (pos.y <= -400 && !this.flag2) {
         this.flag2 = true;
         this.getRankPlayList();
       }
       if (this.flag1 && this.flag2) {
-        window.removeEventListener("scroll", this.windowScroll);
+        this.$refs.scrollWrapper.off();
       }
     },
     refresh() {
@@ -156,12 +164,6 @@ export default {
     currentTag() {
       this.getChosenSongList();
     }
-  },
-  activated() {
-    window.addEventListener("scroll", this.windowScroll);
-  },
-  deactivated() {
-    window.removeEventListener("scroll", this.windowScroll);
   }
 };
 </script>
@@ -170,8 +172,8 @@ export default {
 @import "~@/assets/style/variables.scss";
 
 .discover {
+  max-width: 768px;
   background-color: $gray-light;
-  margin-bottom: 0.6rem;
 }
 .header-bg {
   position: absolute;
@@ -203,12 +205,12 @@ export default {
 .bottom {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 0.1rem;
-  height: 0.8rem;
+  height: 2.4rem;
   background-color: $white;
   border-radius: 0.1rem;
+  padding-bottom: 0.6rem;
   .refresh {
+    margin-top: 0.2rem;
     height: 0.3rem;
     background-color: $theme;
     line-height: 0.3rem;

@@ -9,7 +9,7 @@
         @blur="handleBlur"
         @input="inputChange"
         :class="{ focused: isFocused(0) }"
-        v-model="accountInfo"
+        v-model.trim="accountInfo"
         ref="accountInput"
       />
       <span
@@ -26,8 +26,9 @@
         @blur="handleBlur"
         @input="inputChange"
         :class="{ focused: isFocused(1) }"
-        v-model="password"
+        v-model.trim="password"
         ref="pwdInput"
+        @keyup.enter="submitData"
       />
       <span
         class="icon-cancel"
@@ -38,13 +39,16 @@
     <div class="toggle-type" @click="toggleType">
       <span class="icon-exchange"></span> {{ toggleText }}
     </div>
-    <div class="loginBtn" :class="{ filled: filled }">
+    <div @click="submitData" class="login-btn" :class="{ valid: valid }">
       登录
     </div>
   </div>
 </template>
 
 <script>
+const PHONE_PATTERN = /^1[3456789]\d{9}$/;
+const EMAIL_PATTERN = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+
 export default {
   name: "LoginForm",
   data() {
@@ -53,7 +57,9 @@ export default {
       focusedInput: -1,
       accountInfo: "",
       password: "",
-      filled: false
+      valid: false,
+      showAlert: false,
+      clicked: false
     };
   },
   computed: {
@@ -94,7 +100,21 @@ export default {
       }
     },
     inputChange() {
-      this.filled = !!(this.accountInfo && this.password.length >= 6);
+      if (this.phoneType) {
+        this.valid =
+          PHONE_PATTERN.test(this.accountInfo) && this.password.length >= 6;
+      } else {
+        this.valid =
+          EMAIL_PATTERN.test(this.accountInfo) && this.password.length >= 6;
+      }
+    },
+    submitData() {
+      this.$emit("loginClicked", {
+        accountInfo: this.accountInfo,
+        password: this.password,
+        type: this.phoneType ? "phone" : "email",
+        valid: this.valid
+      });
     }
   }
 };
@@ -136,7 +156,8 @@ export default {
 .focused {
   border-bottom: 1px solid $theme;
 }
-.loginBtn {
+
+.login-btn {
   height: 0.5rem;
   margin: 0.15rem 0;
   font-size: $font-size-l;
@@ -146,7 +167,8 @@ export default {
   line-height: 0.5rem;
   background-color: $theme-light;
 }
-.filled {
+
+.valid {
   background-color: $theme;
 }
 </style>

@@ -5,8 +5,11 @@ import store from "./store";
 import App from "./App.vue";
 import Loader from "@/components/common/loader/Loader";
 import "@/assets/style/index.scss";
+import VueSweetalert2 from "vue-sweetalert2";
 
 Vue.use(VueLazyLoad);
+Vue.use(VueSweetalert2);
+
 Vue.component("Loader", Loader);
 Vue.directive("focus", {
   inserted: function(el) {

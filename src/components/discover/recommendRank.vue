@@ -7,7 +7,7 @@
         <span class="icon-play-circle"></span> 播放全部
       </div>
     </div>
-    <loader v-if="!rankList.tracks"></loader>
+    <loader class="the-loader" v-if="!rankList.tracks"></loader>
     <music-list :playList="rankList.tracks"></music-list>
   </div>
 </template>
@@ -60,6 +60,9 @@ export default {
         color: $theme;
       }
     }
+  }
+  .the-loader {
+    height: 2rem;
   }
 }
 </style>

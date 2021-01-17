@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 import Discover from "@/views/Discover";
 import Profile from "@/views/Profile";
 import Login from "@/views/Login";
@@ -16,21 +15,27 @@ const routes = [
     path: "/discover",
     component: Discover,
     meta: {
-      index: 0
+      title: "发现",
+      index: 0,
+      keepAlive: true
     }
   },
   {
     path: "/profile",
     component: Profile,
     meta: {
-      index: 0
+      title: "我的",
+      index: 0,
+      keepAlive: true
     }
   },
   {
     path: "/login",
     component: Login,
     meta: {
-      index: 1
+      title: "登录",
+      index: 1,
+      keepAlive: false
     }
   }
 ];
@@ -38,14 +43,12 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return { x: 0, y: 0 };
-    }
-  }
+  routes
+});
+
+router.beforeEach(function(to, from, next) {
+  document.title = "music river - " + to.meta.title;
+  next();
 });
 
 export default router;

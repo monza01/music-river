@@ -6,7 +6,6 @@
         @click="setAnimate(index)"
         :class="currentIndex === index ? 'click-animate' : ''"
       >
-        <img class="cover" v-lazy="item.al.picUrl" alt="" />
         <div class="index" :class="isTop3(index)">
           {{ indexFormat(index) }}
         </div>
@@ -57,10 +56,11 @@ export default {
   },
   methods: {
     setAnimate(index) {
-      let timer = null;
-      clearTimeout(timer);
+      if (timer) {
+        clearTimeout(timer);
+      }
       this.currentIndex = index;
-      timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         this.currentIndex = -1;
       }, 300);
     }
@@ -79,31 +79,25 @@ export default {
   height: 0.7rem;
   padding-bottom: 0.1rem;
   display: flex;
-  .cover {
-    width: 0.6rem;
-    border-radius: 0.1rem;
-  }
+  justify-content: space-around;
   .index {
     margin-left: 0.1rem;
     line-height: 0.6rem;
     font-weight: 700;
     font-size: $font-size-m;
-    border-bottom: 1px solid $gray-light;
   }
   .top3 {
     color: $red;
   }
   .msg {
-    width: 55%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     padding: 0.1rem 0.15rem;
     border-bottom: 1px solid $gray-light;
     .song-name {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      @include no-wrap;
       font-size: $font-size-m;
       line-height: 0.18rem;
       font-weight: 500;
@@ -122,11 +116,10 @@ export default {
   color: $yellow;
 }
 .icon-dots-three-vertical {
-  margin-left: 0.2rem;
-  padding: 0 0.05rem;
   font-size: $font-size-s;
   line-height: 0.6rem;
   color: $gray;
+  padding: 0 0.1rem;
 }
 
 .click-animate {

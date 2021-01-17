@@ -7,11 +7,13 @@ html {
   -webkit-tap-highlight-color: transparent;
   background: #fff;
   color: #000;
+  height: 100%;
 }
 
 html{
   font-size:26.666vw;
-  touch-action: manipulation;
+  touch-action: none;
+
 }
 
 @media screen and (min-width: 768px) {
@@ -21,6 +23,7 @@ html{
 }
 
 body{
+  overflow: hidden;
   font-size: 0.14rem;
 }
 
