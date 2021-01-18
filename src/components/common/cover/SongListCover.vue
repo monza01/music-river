@@ -39,27 +39,21 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .cover {
+  @include box(0.9rem, 1.1rem, 0.1rem);
   position: relative;
   left: 0.1rem;
-  width: 0.9rem;
-  height: 1.1rem;
   background-color: $gray-light;
   margin-top: 0.1rem;
-  border-radius: 0.1rem;
   img {
-    position: absolute;
-    top: 0.04rem;
-    left: -0.06rem;
-    width: 1.05rem;
-    border-radius: 0.1rem;
+    @include position(0.04rem, -0.06rem);
+    @include box(1.05rem, $radius: 0.1rem);
   }
   .play-count {
+    @include height(0.14rem);
     position: absolute;
     top: 0.08rem;
     right: -0.05rem;
     font-size: $font-size-xs;
-    height: 0.14rem;
-    line-height: 0.14rem;
     border-radius: 0.07rem;
     background-color: $gray;
     padding: 0 0.05rem;
@@ -67,9 +61,9 @@ export default {
   }
 }
 .title {
+  @include no-wrap;
   margin-top: 0.05rem;
   text-indent: 0.02rem;
   width: 1.1rem;
-  @include no-wrap;
 }
 </style>

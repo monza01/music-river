@@ -40,14 +40,14 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
 
 #tab-bar {
+  @include wh(100%, 0.5rem);
   position: fixed;
   display: flex;
-  width: 100%;
   max-width: 768px;
   bottom: 0;
-  height: 0.5rem;
   background-color: $white;
   z-index: 999;
   transform: translateZ(2px);

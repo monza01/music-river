@@ -39,17 +39,14 @@ export default {
   border-radius: 0.1rem 0.05rem 0.05rem 0.1rem;
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
   .cover {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 0.1rem;
+    @include box(1rem, 1rem, 0.1rem);
     box-shadow: 1px 0 2px 1px rgba(0, 0, 0, 0.3);
   }
   .list {
     padding-left: 0.15rem;
     width: 60%;
     .title {
-      height: 0.35rem;
-      line-height: 0.35rem;
+      @include height(0.35rem);
     }
     li {
       @include no-wrap;

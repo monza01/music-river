@@ -122,6 +122,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
 
 .info {
   font-size: $font-size-m;
@@ -132,11 +133,9 @@ export default {
 .pwd-box {
   position: relative;
   padding: 0 0.25rem;
-
   input {
+    @include wh(1005, 0.5rem);
     margin: 0.1rem 0;
-    width: 100%;
-    height: 0.5rem;
     border-bottom: 1px solid $gray-light;
   }
   .icon-cancel {
@@ -158,13 +157,12 @@ export default {
 }
 
 .login-btn {
-  height: 0.5rem;
+  @include height(0.5rem);
   margin: 0.15rem 0;
   font-size: $font-size-l;
   font-weight: 700;
   color: $white;
   text-align: center;
-  line-height: 0.5rem;
   background-color: $theme-light;
 }
 

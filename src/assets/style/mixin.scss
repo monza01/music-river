@@ -4,3 +4,42 @@
   white-space: nowrap;
 }
 
+@mixin flex($row:center,$col:center) {
+  display: flex;
+  justify-content: $row;
+  align-items: $col;
+}
+
+@mixin height($h:0){
+  height: $h;
+  line-height: $h;
+}
+
+@mixin box($w:0,$h:auto,$radius:50%){
+  width: $w;
+  height: $h;
+  border-radius: $radius;
+}
+
+@mixin border($bc:$black,$bw:1px,$bs:solid) {
+  border: $bw $bs $bc;
+}
+
+@mixin position($top:0,$left:0,$pos:absolute) {
+  position: $pos;
+  top: $top;
+  left: $left;
+}
+
+@mixin wh($w:0,$h:0) {
+  width:$w;
+  height: $h;
+}
+
+@mixin bgImg($w:0,$h:0,$url:'',$size:contain) {
+  display: inline-block;
+  width: $w;
+  height: $h;
+  background: url($url) no-repeat center;
+  background-size: $size;
+}

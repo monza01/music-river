@@ -170,6 +170,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
 
 .discover {
   max-width: 768px;
@@ -210,10 +211,9 @@ export default {
   border-radius: 0.1rem;
   padding-bottom: 0.6rem;
   .refresh {
+    @include height(0.3rem);
     margin-top: 0.2rem;
-    height: 0.3rem;
     background-color: $theme;
-    line-height: 0.3rem;
     padding: 0 0.2rem;
     color: $white;
     font-weight: 500;

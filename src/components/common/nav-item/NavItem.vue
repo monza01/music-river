@@ -21,23 +21,20 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
+
 .nav-item {
   display: flex;
   flex-direction: column;
   font-size: $font-size-xs;
   text-align: center;
   .icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 0.5rem;
-    height: 0.5rem;
+    @include flex();
+    @include box(0.5rem, 0.5rem);
     background-color: $theme-lighter;
-    border-radius: 50%;
     margin-bottom: 0.05rem;
     img {
-      width: 0.3rem;
-      height: 0.3rem;
+      @include wh(0.3rem, 0.3rem);
     }
   }
 }

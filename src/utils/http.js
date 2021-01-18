@@ -4,7 +4,6 @@ const timeStamp = () => {
 };
 
 const instance = axios.create({
-  // baseURL: "https://autumnfish.cn",
   baseURL: "http://10.131.1.30:3000",
   timeout: 10000,
   withCredentials: true
@@ -31,8 +30,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     if (response.status !== 200) {
-      console.log(response.data.msg);
-      return Promise.reject(response);
+      if (response.status === 301) {
+        console.log(response.data);
+        window.location.href = "/login";
+      } else {
+        console.log(response.data);
+        return Promise.reject(response);
+      }
     } else {
       return response.data;
     }

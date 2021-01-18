@@ -57,13 +57,13 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
 
 .alert {
+  @include wh(100%, 0.5rem);
   position: absolute;
-  width: 100%;
-  height: 0.5rem;
   color: $white;
-  font-size: 0.14rem;
+  font-size: $font-size-s;
   line-height: 0.5rem;
   text-align: center;
   z-index: 9999;

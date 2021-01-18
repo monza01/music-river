@@ -39,6 +39,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
 
 .tab-item {
   flex: 1;
@@ -46,15 +47,13 @@ export default {
   font-size: $font-size-xs;
   color: $gray;
   .icon {
+    @include box(0.25rem, 0.25rem);
     margin: 4px auto;
-    width: 0.25rem;
-    height: 0.25rem;
     font-size: $font-size-xl;
     border-radius: 50%;
     transition: font-size 0.1s;
     :nth-child(1) {
-      height: 0.25rem;
-      line-height: 0.25rem;
+      @include height(0.25rem);
     }
   }
   .text-active {

@@ -80,11 +80,11 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
+
 .my-bullet {
-  width: 0.1rem;
-  height: 0.02rem;
+  @include box(0.1rem, 0.02rem, 0.01rem);
   display: inline-block;
-  border-radius: 0.01rem;
   background: $gray;
   margin: -0.07rem 0.02rem;
 }

@@ -46,6 +46,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
 
 .mini-tab-bar {
   position: relative;
@@ -59,13 +60,9 @@ export default {
     padding: 0.05rem 0.1rem;
   }
   .border {
-    position: absolute;
-    top: 0.2rem;
-    left: 0.05rem;
-    width: 0.38rem;
-    height: 4px;
+    @include position(0.2rem, 0.05rem);
+    @include box(0.38rem, 4px, 2px);
     margin-top: 0.03rem;
-    border-radius: 2px;
     background-image: linear-gradient(90deg, $yellow, $theme);
     transition: all 0.2s;
   }

@@ -44,39 +44,40 @@ export default {
         this.alertText = "账号或密码格式不正确 ！";
         this.$refs.alert.show();
       } else {
-        if (data.type === "phone") {
-          this.loading = true;
-          loginWithPhone({
-            phone: data.accountInfo,
-            password: data.password
-          })
-            .then(res => {
-              this.success(res);
-              this.loading = false;
+        if (!this.loading) {
+          if (data.type === "phone") {
+            this.loading = true;
+            loginWithPhone({
+              phone: data.accountInfo,
+              password: data.password
             })
-            .catch(res => {
-              this.error(res);
-              this.loading = false;
-            });
-        } else {
-          this.loading = true;
-          loginWithEmail({
-            email: data.accountInfo,
-            password: data.password
-          })
-            .then(res => {
-              this.success(res);
-              this.loading = false;
+              .then(res => {
+                this.success(res);
+                this.loading = false;
+              })
+              .catch(res => {
+                this.error(res);
+                this.loading = false;
+              });
+          } else {
+            this.loading = true;
+            loginWithEmail({
+              email: data.accountInfo,
+              password: data.password
             })
-            .catch(res => {
-              this.error(res);
-              this.loading = false;
-            });
+              .then(res => {
+                this.success(res);
+                this.loading = false;
+              })
+              .catch(res => {
+                this.error(res);
+                this.loading = false;
+              });
+          }
         }
       }
     },
     success(res) {
-      console.log(res.code);
       if (res.code === 200) {
         this.$router.push("/discover").catch(err => err);
       } else {
@@ -86,7 +87,6 @@ export default {
       }
     },
     error(res) {
-      console.log(res.code);
       this.alertType = "warn";
       this.alertText = res.msg;
       this.$refs.alert.show();

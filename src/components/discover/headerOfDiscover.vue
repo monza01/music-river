@@ -27,12 +27,11 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .header {
+  @include wh(100%, 0.44rem);
   position: absolute;
   z-index: 100;
   display: flex;
-  width: 100%;
   align-items: center;
-  height: 0.44rem;
   text-align: center;
   color: #37474f;
   .login,
@@ -48,11 +47,10 @@ export default {
     }
   }
   .searchBox {
+    @include height(0.34rem);
     flex: 1;
-    height: 0.34rem;
     border-radius: 0.17rem;
     color: $gray;
-    line-height: 0.34rem;
     background-color: $gray-light;
     span {
       padding: 0 0.03rem;

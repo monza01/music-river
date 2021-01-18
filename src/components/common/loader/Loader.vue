@@ -20,6 +20,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
 
 .loader-container {
   display: flex;
@@ -33,20 +34,16 @@ export default {
 }
 
 .loader {
+  @include wh(75px, 50px);
   position: relative;
-  width: 75px;
-  height: 50px;
   transform: scale(0.5);
-
   &__bar {
+    @include wh(10px, 100%);
     position: absolute;
     bottom: 0;
-    width: 10px;
-    height: 100%;
     background: $yellow;
     transform-origin: center bottom;
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
-
     @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
         left: ($i - 1) * 15px;
@@ -57,13 +54,11 @@ export default {
   }
 
   &__ball {
+    @include box(10px, 10px);
     position: absolute;
     bottom: 10px;
     left: 0;
-    width: 10px;
-    height: 10px;
     background: $yellow;
-    border-radius: 50%;
     animation: ball 4s infinite;
   }
 }
