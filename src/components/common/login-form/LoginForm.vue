@@ -134,7 +134,7 @@ export default {
   position: relative;
   padding: 0 0.25rem;
   input {
-    @include wh(1005, 0.5rem);
+    @include wh(100%, 0.5rem);
     margin: 0.1rem 0;
     border-bottom: 1px solid $gray-light;
   }

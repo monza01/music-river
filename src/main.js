@@ -1,15 +1,15 @@
 import Vue from "vue";
 import VueLazyLoad from "vue-lazyload";
 import router from "./router";
+import VueCookies from "vue-cookies";
 import store from "./store";
 import App from "./App.vue";
 import Loader from "@/components/common/loader/Loader";
 import "@/assets/style/index.scss";
-import VueSweetalert2 from "vue-sweetalert2";
 
 Vue.use(VueLazyLoad);
-Vue.use(VueSweetalert2);
-
+Vue.use(VueCookies);
+Vue.$cookies.config("7d");
 Vue.component("Loader", Loader);
 Vue.directive("focus", {
   inserted: function(el) {

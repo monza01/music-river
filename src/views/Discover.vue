@@ -5,11 +5,12 @@
     @scroll="handleScroll"
     ref="scrollWrapper"
   >
-    <div class="discover " ref="discover">
+    <div class="discover container" ref="discover">
       <div class="head">
         <header-of-discover
           class="header"
           @loginClicked="loginClicked"
+          :avatar="logged ? userAvatar : ''"
         ></header-of-discover>
         <img class="header-bg" :src="currentImgURL" width="100%" alt="" />
         <carousel
@@ -59,6 +60,7 @@ import RecommendSongList from "@/components/discover/RecommendSongList";
 import ChosenSongList from "@/components/discover/ChosenSongList";
 import RankSummary from "@/components/discover/RankSummary";
 import RecommendRank from "@/components/discover/recommendRank";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Discover",
@@ -157,6 +159,9 @@ export default {
       window.location.reload();
     }
   },
+  computed: {
+    ...mapGetters(["logged", "userAvatar"])
+  },
   watch: {
     banners() {
       this.currentImgURL = this.banners[0].pic;
@@ -173,7 +178,6 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .discover {
-  max-width: 768px;
   background-color: $gray-light;
 }
 .header-bg {

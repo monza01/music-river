@@ -1,4 +1,6 @@
 import axios from "axios";
+import Cookies from "vue-cookies";
+
 const timeStamp = () => {
   return new Date().getTime();
 };
@@ -10,6 +12,13 @@ const instance = axios.create({
 });
 instance.interceptors.request.use(
   config => {
+    const USER_COOKIE = Cookies.get("userCookie") || "";
+    if (USER_COOKIE) {
+      config.params = {
+        ...config.params,
+        cookie: USER_COOKIE
+      };
+    }
     if (config.method === "get") {
       config.params = {
         ...config.params,
@@ -21,6 +30,7 @@ instance.interceptors.request.use(
         ...config.data
       };
     }
+
     return config;
   },
   error => {
@@ -31,10 +41,8 @@ instance.interceptors.response.use(
   response => {
     if (response.status !== 200) {
       if (response.status === 301) {
-        console.log(response.data);
-        window.location.href = "/login";
+        return Promise.reject(response);
       } else {
-        console.log(response.data);
         return Promise.reject(response);
       }
     } else {

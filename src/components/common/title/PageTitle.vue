@@ -1,6 +1,6 @@
 <template>
   <div class="page-title">
-    <div class="icon" :class="iconName" @click="back"></div>
+    <div v-if="needBackBtn" class="icon" :class="iconName" @click="back"></div>
     <h3 class="the-title">{{ pageTitle }}</h3>
   </div>
 </template>
@@ -16,6 +16,10 @@ export default {
     pageTitle: {
       type: String,
       default: "页面标题"
+    },
+    needBackBtn: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -31,10 +35,10 @@ export default {
 
 .page-title {
   position: relative;
-  padding: 0.15rem;
+  padding: 0.1rem;
   .icon {
     position: absolute;
-    top: 0.07rem;
+    top: 0.03rem;
     padding: 0 0.1rem;
     font-size: $font-size-xxl;
   }

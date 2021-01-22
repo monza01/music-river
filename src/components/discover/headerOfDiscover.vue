@@ -7,7 +7,15 @@
       <span class="icon-search"></span>
       <span>音乐/歌手</span>
     </div>
-    <div class="login" @click="loginClicked">登录</div>
+    <div class="login-box">
+      <img v-if="avatar" :src="avatar" alt="" />
+      <img
+        v-else
+        src="~@/assets/images/icon/login.png"
+        alt=""
+        @click="loginClicked"
+      />
+    </div>
   </div>
 </template>
 
@@ -18,6 +26,9 @@ export default {
     loginClicked() {
       this.$emit("loginClicked");
     }
+  },
+  props: {
+    avatar: String
   }
 };
 </script>
@@ -34,12 +45,12 @@ export default {
   align-items: center;
   text-align: center;
   color: #37474f;
-  .login,
+  .login-box,
   .lists {
-    padding: 0.15rem;
+    padding: 0.05rem 0.15rem 0;
   }
-  .login {
-    font-weight: 600;
+  img {
+    @include box(0.3rem, 0.3rem);
   }
   .lists {
     .icon-indent {

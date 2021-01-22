@@ -163,5 +163,7 @@ export default {
 .wrapper {
   width: 100vw;
   height: 100vh;
+  min-width: 320px;
+  max-width: 768px;
 }
 </style>

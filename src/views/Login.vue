@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page" id="test">
+  <div class="login-page">
     <alert ref="alert" :text="alertText" :alert-type="alertType"></alert>
     <div class="login-header">
       <page-title
@@ -22,6 +22,7 @@ import PageTitle from "@/components/common/title/PageTitle";
 import LoginForm from "@/components/common/login-form/LoginForm";
 import { loginWithEmail, loginWithPhone } from "@/api/user";
 import Alert from "@/components/common/popup/Alert";
+import { mapActions } from "vuex";
 
 export default {
   name: "Login",
@@ -38,6 +39,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["manageUser"]),
     toLogin(data) {
       if (!data.valid) {
         this.alertType = "warn";
@@ -79,6 +81,13 @@ export default {
     },
     success(res) {
       if (res.code === 200) {
+        console.log(res);
+        this.manageUser({
+          status: true,
+          id: res.account.id,
+          avatar: res.profile.avatarUrl
+        });
+        this.$cookies.set("userCookie", res.cookie);
         this.$router.push("/discover").catch(err => err);
       } else {
         this.alertType = "warn";
@@ -97,42 +106,36 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/style/variables.scss";
+@import "~@/assets/style/mixin.scss";
+
 .login-page {
-  width: 100%;
-  height: 100%;
+  @include wh(100%, 100%);
   background-color: $white;
 }
 .logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex();
   height: 2rem;
   .logo {
+    @include height(1.2rem);
     width: 1.2rem;
-    height: 1.2rem;
     background-color: $black;
     color: $white;
     font-size: 80px;
-    line-height: 1.2rem;
     text-align: center;
   }
 }
 
 .loading {
+  @include flex();
+  @include wh(100%, 0.5rem);
   position: absolute;
   top: 4.54rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 0.5rem;
   background-color: #86ccca;
   img {
+    @include wh(0.3rem, 0.3rem);
     animation-name: spin;
     animation-duration: 1s;
     animation-iteration-count: infinite;
-    width: 0.3rem;
-    height: 0.3rem;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div id="tab-bar">
+  <div id="tab-bar" class="container">
     <tab-item link="/discover">
       <template v-slot:icon>
         <div class="icon-headphones"></div>
@@ -30,6 +30,7 @@
 
 <script>
 import TabItem from "@/components/common/tab/TabItem";
+
 export default {
   name: "tabBar",
   components: {
@@ -46,7 +47,6 @@ export default {
   @include wh(100%, 0.5rem);
   position: fixed;
   display: flex;
-  max-width: 768px;
   bottom: 0;
   background-color: $white;
   z-index: 999;

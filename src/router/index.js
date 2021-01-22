@@ -16,8 +16,7 @@ const routes = [
     component: Discover,
     meta: {
       title: "发现",
-      index: 0,
-      keepAlive: true
+      index: 0
     }
   },
   {
@@ -25,8 +24,7 @@ const routes = [
     component: Profile,
     meta: {
       title: "我的",
-      index: 0,
-      keepAlive: true
+      index: 0
     }
   },
   {
@@ -34,8 +32,7 @@ const routes = [
     component: Login,
     meta: {
       title: "登录",
-      index: 1,
-      keepAlive: false
+      index: 1
     }
   }
 ];

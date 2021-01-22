@@ -5,6 +5,7 @@ html {
   font-family: -apple-system,Helvetica,sans-serif;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing:subpixel-antialiased;
   background: #fff;
   color: #000;
   height: 100%;
@@ -22,6 +23,12 @@ html{
   }
 }
 
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 85px;
+  }
+}
+
 body{
   overflow: hidden;
   font-size: 0.14rem;
@@ -33,5 +40,10 @@ li{
 
 input{
   outline: none;
+}
+
+.container{
+  min-width: 320px;
+  max-width: 768px;
 }
 

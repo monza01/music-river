@@ -1,5 +1,7 @@
 const state = {
-  scrollTop: 0
+  logged: false,
+  userId: 0,
+  userAvatar: ""
 };
 
 export default state;
