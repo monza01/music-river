@@ -12,6 +12,14 @@ export function checkUserStatus() {
   return request.get("/user/account");
 }
 
-export function getPfrofile(params) {
+export function getProfile(params) {
   return request.get("/user/detail", { params });
+}
+
+export function getRecord(params) {
+  return request.get("/user/record", { params });
+}
+
+export function getUserPlaylists(params) {
+  return request.get("/user/playlist", { params });
 }

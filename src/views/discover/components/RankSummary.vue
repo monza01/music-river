@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import TheTitle from "@/components/common/title/Title";
-import Top3 from "@/components/discover/Top3";
+import TheTitle from "@/components/title/Title";
+import Top3 from "@/views/discover/components/Top3";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 

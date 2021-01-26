@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GetMoreButton from "@/components/common/button/GetMoreButton";
+import GetMoreButton from "@/components/button/GetMoreButton";
 
 export default {
   name: "Tittle",

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import TabItem from "@/components/common/tab/TabItem";
+import TabItem from "@/components/tab/TabItem";
 
 export default {
   name: "tabBar",

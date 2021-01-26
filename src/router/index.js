@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Discover from "@/views/Discover";
-import Profile from "@/views/Profile";
-import Login from "@/views/Login";
+import Discover from "@/views/discover/Discover";
+import Profile from "@/views/profile/Profile";
+import Login from "@/views/login/Login";
 
 Vue.use(VueRouter);
 

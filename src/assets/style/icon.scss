@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cancel:before {
+  content: "\e903";
+}
 .icon-play:before {
   content: "\e901";
 }
@@ -64,8 +67,12 @@
 .icon-angle-down:before {
   content: "\f107";
 }
-.icon-cancel:before {
-  content: "\e903";
+.icon-random:before {
+  content: "\f074";
 }
+.icon-heartbeat:before {
+  content: "\f21e";
+}
+
 
 

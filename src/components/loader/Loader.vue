@@ -23,6 +23,7 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .loader-container {
+  padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;

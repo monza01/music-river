@@ -1,11 +1,11 @@
 import Vue from "vue";
+import "@/assets/style/index.scss";
 import VueLazyLoad from "vue-lazyload";
 import router from "./router";
 import VueCookies from "vue-cookies";
 import store from "./store";
 import App from "./App.vue";
-import Loader from "@/components/common/loader/Loader";
-import "@/assets/style/index.scss";
+import Loader from "@/components/loader/Loader";
 
 Vue.use(VueLazyLoad);
 Vue.use(VueCookies);

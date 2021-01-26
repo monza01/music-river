@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import MusicList from "@/components/common/music-list/MusicList";
+import MusicList from "@/components/lists/MusicList";
 
 export default {
   name: "recommendRank",

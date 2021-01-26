@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <div class="login-page container">
     <alert ref="alert" :text="alertText" :alert-type="alertType"></alert>
     <div class="login-header">
       <page-title
@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import PageTitle from "@/components/common/title/PageTitle";
-import LoginForm from "@/components/common/login-form/LoginForm";
+import PageTitle from "@/components/title/PageTitle";
+import LoginForm from "@/components/login-form/LoginForm";
+import Alert from "@/components/popup/Alert";
 import { loginWithEmail, loginWithPhone } from "@/api/user";
-import Alert from "@/components/common/popup/Alert";
 import { mapActions } from "vuex";
 
 export default {
@@ -81,7 +81,6 @@ export default {
     },
     success(res) {
       if (res.code === 200) {
-        console.log(res);
         this.manageUser({
           status: true,
           id: res.account.id,
@@ -109,8 +108,8 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .login-page {
-  @include wh(100%, 100%);
   background-color: $white;
+  height: 100%;
 }
 .logo-container {
   @include flex();
@@ -129,7 +128,7 @@ export default {
   @include flex();
   @include wh(100%, 0.5rem);
   position: absolute;
-  top: 4.54rem;
+  top: 4.44rem;
   background-color: #86ccca;
   img {
     @include wh(0.3rem, 0.3rem);

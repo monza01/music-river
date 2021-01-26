@@ -10,6 +10,7 @@ const instance = axios.create({
   timeout: 10000,
   withCredentials: true
 });
+
 instance.interceptors.request.use(
   config => {
     const USER_COOKIE = Cookies.get("userCookie") || "";
@@ -30,21 +31,17 @@ instance.interceptors.request.use(
         ...config.data
       };
     }
-
     return config;
   },
   error => {
     return Promise.reject(error);
   }
 );
+
 instance.interceptors.response.use(
   response => {
     if (response.status !== 200) {
-      if (response.status === 301) {
-        return Promise.reject(response);
-      } else {
-        return Promise.reject(response);
-      }
+      return Promise.reject(response);
     } else {
       return response.data;
     }

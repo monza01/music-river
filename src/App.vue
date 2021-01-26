@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import TabBar from "@/components/common/tab/TabBar";
+import TabBar from "@/components/tab/TabBar";
 import Player from "@/components/player/Player";
 import { checkUserStatus } from "@/api/user";
 import { mapActions } from "vuex";
@@ -60,12 +60,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~@/assets/style/variables.scss";
 @import "~@/assets/style/transition.scss";
 #app {
-  position: relative;
   margin: 0 auto;
-  background-color: $white;
-  height: 100%;
 }
 </style>

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import NavItem from "@/components/common/nav-item/NavItem";
+import NavItem from "@/components/nav-item/NavItem";
 export default {
   name: "Navigation",
   components: {

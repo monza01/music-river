@@ -8,7 +8,7 @@ export function getRecommendSongList(params) {
   return request.get("/personalized", { params });
 }
 
-export function getChosenSongList(params) {
+export function getChosenSongs(params) {
   return request.get("/top/playlist/highquality", { params });
 }
 

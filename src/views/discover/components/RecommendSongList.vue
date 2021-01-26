@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import TheTitle from "@/components/common/title/Title";
-import Cover from "@/components/common/cover/SongListCover";
+import TheTitle from "@/components/title/Title";
+import Cover from "@/components/cover/SongListCover";
 export default {
   name: "RecommendSongList",
   props: {

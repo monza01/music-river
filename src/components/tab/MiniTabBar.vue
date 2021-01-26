@@ -1,7 +1,8 @@
 <template>
-  <div class="mini-tab-bar">
+  <div class="mini-tab-bar" :style="flexStyle">
     <div
       class="tab-item"
+      :class="{ current: currentTag === index }"
       v-for="(item, index) in tags"
       :key="index"
       @click="changeTag(index)"
@@ -9,7 +10,7 @@
     >
       {{ item }}
     </div>
-    <div ref="border" class="border"></div>
+    <div ref="border" class="border" :style="borderStyle"></div>
   </div>
 </template>
 
@@ -21,7 +22,8 @@ export default {
   name: "MiniTabBar",
   data() {
     return {
-      currentTag: 0
+      currentTag: 0,
+      borderWidth: 0
     };
   },
   methods: {
@@ -30,8 +32,20 @@ export default {
       this.$refs.border.style[
         TRANSfORM
       ] = `translateX(${this.$refs.tabItems[index].offsetLeft}px)`;
+      this.borderWidth = this.$refs.tabItems[index].offsetWidth;
       this.$emit("tagClicked", this.currentTag);
     }
+  },
+  computed: {
+    flexStyle() {
+      return `justify-content: ${this.layout}`;
+    },
+    borderStyle() {
+      return `width:${this.borderWidth}px`;
+    }
+  },
+  mounted() {
+    this.borderWidth = this.$refs.tabItems[0].offsetWidth;
   },
   props: {
     tags: {
@@ -39,6 +53,10 @@ export default {
       default: () => {
         return [];
       }
+    },
+    layout: {
+      type: String,
+      default: "flex-start"
     }
   }
 };
@@ -51,18 +69,20 @@ export default {
 .mini-tab-bar {
   position: relative;
   display: flex;
-  justify-content: flex-start;
   .tab-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 0.5rem;
-    padding: 0.05rem 0.1rem;
+    padding: 0.1rem;
+    color: $gray-deep;
+  }
+  .current {
+    font-weight: 700;
+    color: $black;
   }
   .border {
-    @include position(0.2rem, 0.05rem);
-    @include box(0.38rem, 4px, 2px);
-    margin-top: 0.03rem;
+    position: absolute;
+    top: 0.2rem;
+    height: 4px;
+    border-radius: 2px;
+    margin-top: 0.1rem;
     background-image: linear-gradient(90deg, $yellow, $theme);
     transition: all 0.2s;
   }

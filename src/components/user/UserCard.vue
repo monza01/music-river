@@ -37,8 +37,8 @@ export default {
 @import "~@/assets/style/mixin.scss";
 .user-card {
   position: relative;
-  left: 5%;
-  width: 90%;
+  left: 4%;
+  width: 92%;
   border-radius: 0.2rem;
   padding-bottom: 0.1rem;
   background-color: $white;
@@ -62,6 +62,7 @@ export default {
     position: relative;
     text-align: center;
     padding-top: 0.5rem;
+    height: 0.68rem;
     font-size: $font-size-l;
     font-weight: 700;
   }

@@ -6,7 +6,8 @@
         @click="setAnimate(index)"
         :class="currentIndex === index ? 'click-animate' : ''"
       >
-        <div class="index" :class="isTop3(index)">
+        <img class="song-cover" v-lazy="item.al.picUrl" alt="cover" />
+        <div v-if="needIndex" class="index" :class="isTop3(index)">
           {{ indexFormat(index) }}
         </div>
         <div class="msg">
@@ -17,7 +18,7 @@
             </span>
           </div>
         </div>
-        <span class="icon-report"></span>
+        <!--        <span class="icon-report"></span>-->
         <span class="icon-dots-three-vertical"></span>
       </div>
     </li>
@@ -40,6 +41,10 @@ export default {
       default: () => {
         return [];
       }
+    },
+    needIndex: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -76,12 +81,15 @@ export default {
   height: 0.7rem;
 }
 .wrapper {
+  display: flex;
   height: 0.7rem;
   padding-bottom: 0.1rem;
-  display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  .song-cover {
+    @include box(0.6rem, 0.6rem, 0.1rem);
+  }
   .index {
-    margin-left: 0.1rem;
+    margin: 0 0.1rem;
     line-height: 0.6rem;
     font-weight: 700;
     font-size: $font-size-m;
@@ -90,11 +98,11 @@ export default {
     color: $red;
   }
   .msg {
-    width: 65%;
     display: flex;
+    width: 55%;
     flex-direction: column;
     justify-content: space-around;
-    padding: 0.1rem 0.15rem;
+    padding: 0.1rem 0;
     border-bottom: 1px solid $gray-light;
     .song-name {
       @include no-wrap;
@@ -110,11 +118,11 @@ export default {
     }
   }
 }
-.icon-report {
-  font-size: $font-size-l;
-  line-height: 0.6rem;
-  color: $yellow;
-}
+//.icon-report {
+//  font-size: $font-size-l;
+//  line-height: 0.6rem;
+//  color: $yellow;
+//}
 .icon-dots-three-vertical {
   font-size: $font-size-s;
   line-height: 0.6rem;

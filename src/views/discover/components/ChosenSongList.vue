@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import TheTitle from "@/components/common/title/Title";
-import Cover from "@/components/common/cover/SongListCover";
-import MiniTabBar from "@/components/common/tab/MiniTabBar";
+import TheTitle from "@/components/title/Title";
+import Cover from "@/components/cover/SongListCover";
+import MiniTabBar from "@/components/tab/MiniTabBar";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
