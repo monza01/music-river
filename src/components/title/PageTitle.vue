@@ -20,11 +20,16 @@ export default {
     needBackBtn: {
       type: Boolean,
       default: true
-    }
+    },
+    backTo: String
   },
   methods: {
     back() {
-      this.$router.back();
+      if (this.backTo) {
+        this.$router.push(this.backTo);
+      } else {
+        this.$router.back();
+      }
     }
   }
 };
@@ -38,9 +43,9 @@ export default {
   padding: 0.1rem;
   .icon {
     position: absolute;
-    top: 0.03rem;
+    top: 0;
     padding: 0 0.1rem;
-    font-size: $font-size-xxl;
+    font-size: 36px;
   }
   .the-title {
     font-size: $font-size-l;

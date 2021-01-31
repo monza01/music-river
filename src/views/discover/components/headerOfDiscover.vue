@@ -8,7 +8,7 @@
       <span>音乐/歌手</span>
     </div>
     <div class="login-box">
-      <img v-if="avatar" :src="avatar" alt="" />
+      <img @click="avatarClicked" v-if="avatar" :src="avatar" alt="" />
       <img
         v-else
         src="~@/assets/images/icon/login.png"
@@ -25,6 +25,9 @@ export default {
   methods: {
     loginClicked() {
       this.$emit("loginClicked");
+    },
+    avatarClicked() {
+      this.$emit("avatarClicked");
     }
   },
   props: {

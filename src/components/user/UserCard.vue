@@ -6,7 +6,7 @@
     </div>
     <div v-if="logged" class="nick-name">{{ profile.nickname }}</div>
     <div v-else @click="loginBtnClicked" class="login-now">
-      立即登录<span class="icon-angle-right"></span>
+      立即登录
     </div>
     <div class="follow">
       <span>{{ profile.follows || 0 }}</span> 关注
@@ -68,13 +68,6 @@ export default {
   }
   .login-now {
     color: $gray-deep;
-    text-indent: -0.1rem;
-    .icon-angle-right {
-      position: absolute;
-      top: 0.43rem;
-      left: 2.1rem;
-      font-size: 28px;
-    }
   }
   .follow {
     padding-top: 0.1rem;

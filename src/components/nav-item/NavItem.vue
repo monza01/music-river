@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-item">
+  <div class="nav-item" @click="nav">
     <div class="icon">
       <slot name="icon"></slot>
     </div>
@@ -11,9 +11,12 @@
 export default {
   name: "NavItem",
   props: {
-    title: {
-      type: String,
-      default: ""
+    title: String,
+    link: String
+  },
+  methods: {
+    nav() {
+      this.$router.push(this.link).catch(err => err);
     }
   }
 };

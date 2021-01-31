@@ -1,7 +1,7 @@
 <template>
   <div class="title">
     <p>{{ title }}</p>
-    <GetMoreButton></GetMoreButton>
+    <GetMoreButton :link="link"></GetMoreButton>
   </div>
 </template>
 
@@ -14,7 +14,8 @@ export default {
     title: {
       type: String,
       default: ""
-    }
+    },
+    link: String
   },
   components: {
     GetMoreButton

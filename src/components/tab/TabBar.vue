@@ -44,13 +44,12 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 #tab-bar {
-  @include wh(100%, 0.5rem);
-  position: fixed;
+  @include wh(100%, 0.6rem);
+  position: absolute;
   display: flex;
   bottom: 0;
   background-color: $white;
-  z-index: 999;
-  transform: translateZ(2px);
+  z-index: 9;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
   .record {
     transform: translateY(-5px);

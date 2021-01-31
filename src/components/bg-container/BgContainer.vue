@@ -7,7 +7,12 @@
       class="the-page-title"
       ref="theTitle"
     ></page-title>
-    <my-scroll :listenScroll="true" @scroll="handleScroll" class="my-scroll">
+    <my-scroll
+      :remember-scroll="rememberScroll"
+      :listenScroll="true"
+      @scroll="handleScroll"
+      class="my-scroll"
+    >
       <template v-slot:scrollContent>
         <slot></slot>
       </template>
@@ -34,6 +39,10 @@ export default {
     titleColor: {
       type: String,
       default: "#000"
+    },
+    rememberScroll: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -96,7 +105,7 @@ export default {
     color: $white;
   }
   .my-scroll {
-    height: calc(100% - 0.4rem);
+    height: calc(100% - 1rem);
   }
 }
 </style>

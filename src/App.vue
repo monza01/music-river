@@ -5,7 +5,9 @@
         <router-view> </router-view>
       </keep-alive>
     </transition>
-    <tab-bar></tab-bar>
+    <transition name="up-down">
+      <tab-bar v-show="showTab"></tab-bar>
+    </transition>
     <player v-show="false"></player>
   </div>
 </template>
@@ -24,7 +26,8 @@ export default {
   data() {
     return {
       transitionName: "",
-      show: false
+      show: false,
+      showTab: true
     };
   },
   created() {
@@ -47,6 +50,7 @@ export default {
   },
   watch: {
     $route(to, from) {
+      this.showTab = to.path === "/discover" || to.path === "/profile";
       if (to.meta.index > from.meta.index) {
         this.transitionName = "slide-left";
       } else if (to.meta.index < from.meta.index) {

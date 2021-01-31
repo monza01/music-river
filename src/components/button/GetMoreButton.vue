@@ -1,5 +1,5 @@
 <template>
-  <div class="getMoreBtn">
+  <div class="getMoreBtn" @click="btnClicked">
     更多
     <span class="icon-angle-right"></span>
   </div>
@@ -7,7 +7,15 @@
 
 <script>
 export default {
-  name: "GetMoreButton"
+  name: "GetMoreButton",
+  props: {
+    link: String
+  },
+  methods: {
+    btnClicked() {
+      this.$router.push(this.link).catch(err => err);
+    }
+  }
 };
 </script>
 

@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="discover-container">
     <loader v-if="loading"></loader>
     <my-scroll
-      ref="myScroll"
+      :remember-scroll="true"
       :listen-scroll="listenScroll"
       @scroll="handleScroll"
     >
@@ -12,6 +12,7 @@
             <header-of-discover
               class="header"
               @loginClicked="loginClicked"
+              @avatarClicked="avatarClicked"
               :avatar="logged ? userAvatar : ''"
             ></header-of-discover>
             <img class="header-bg" :src="currentImgURL" width="100%" alt="" />
@@ -52,12 +53,8 @@
 
 <script>
 import axios from "axios";
-import {
-  getBanner,
-  getRecommendSongList,
-  getChosenSongs,
-  getRankSummary
-} from "@/api/discover";
+import { getBanner, getRankSummary } from "@/api/discover";
+import { getChosenSongs, getRecommendSongList } from "@/api/common";
 import { getPlaylist } from "@/api/common";
 import { randomNum } from "@/utils/utils";
 import MyScroll from "@/components/scroll/MyScroll";
@@ -96,8 +93,7 @@ export default {
       rankPlayList: {},
       flag1: false,
       flag2: false,
-      listenScroll: true,
-      scrollTop: 0
+      listenScroll: true
     };
   },
   created() {
@@ -111,7 +107,8 @@ export default {
           getBanner(),
           getChosenSongs({
             limit: 6,
-            cat: this.tags[this.currentTag]
+            cat: this.tags[this.currentTag],
+            offset: randomNum(0, 200)
           }),
           getRankSummary()
         ])
@@ -132,7 +129,8 @@ export default {
       if (!this.chosenSongList[this.currentTag]) {
         getChosenSongs({
           limit: 6,
-          cat: this.tags[this.currentTag]
+          cat: this.tags[this.currentTag],
+          offset: randomNum(0, 200)
         }).then(res => {
           this.$set(this.chosenSongList, this.currentTag, res.playlists);
         });
@@ -148,10 +146,14 @@ export default {
       const rankId = this.rankCategory[num];
       getPlaylist({ id: rankId }).then(res => {
         this.rankPlayList = res.playlist;
+        this.rankPlayList.tracks = this.rankPlayList.tracks.slice(0, 10);
       });
     },
     loginClicked() {
       this.$router.push("/login").catch(err => err);
+    },
+    avatarClicked() {
+      this.$router.push("/profile").catch(err => err);
     },
     getCurrentImgURL(index) {
       if (timer) {
@@ -168,11 +170,11 @@ export default {
       window.location.reload();
     },
     handleScroll(pos) {
-      if (pos >= 90 && !this.flag1) {
+      if (pos >= 100 && !this.flag1) {
         this.flag1 = true;
         this.getRecommendSongList();
       }
-      if (pos >= 400 && !this.flag2) {
+      if (pos >= 490 && !this.flag2) {
         this.flag2 = true;
         this.getRankPlayList();
       }
@@ -191,14 +193,6 @@ export default {
     currentTag() {
       this.getChosenSongList();
     }
-  },
-  activated() {
-    this.$nextTick().then(() => {
-      this.$refs.myScroll.$el.scrollTop = this.scrollTop;
-    });
-  },
-  deactivated() {
-    this.scrollTop = this.$refs.myScroll.$el.scrollTop;
   }
 };
 </script>
@@ -206,7 +200,9 @@ export default {
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
 @import "~@/assets/style/mixin.scss";
-
+.discover-container {
+  height: calc(100% - 0.6rem);
+}
 .discover {
   background-color: $gray-light;
 }
@@ -240,10 +236,9 @@ export default {
 .bottom {
   display: flex;
   justify-content: center;
-  height: 2.4rem;
+  height: 1rem;
   background-color: $white;
   border-radius: 0.1rem;
-  padding-bottom: 0.6rem;
   .refresh {
     @include height(0.3rem);
     margin-top: 0.2rem;

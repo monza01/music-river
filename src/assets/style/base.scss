@@ -6,6 +6,7 @@ html {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing:subpixel-antialiased;
+  -webkit-overflow-scrolling: touch;
   background: #fff;
   color: #000;
   height: 100%;
@@ -15,6 +16,9 @@ html {
 html{
   font-size:26.666vw;
   touch-action: manipulation;
+}
+body{
+  font-size: 0.14rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -27,10 +31,6 @@ html{
   html {
     font-size: 85px;
   }
-}
-
-body{
-  font-size: 0.14rem;
 }
 
 li{

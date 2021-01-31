@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="cover">
-      <img v-lazy="imgURL" alt="" />
+      <img v-lazy="detail.coverImgUrl || detail.picUrl" alt="" />
       <div class="play-count icon-play">{{ formatPlayCount }}</div>
     </div>
-    <div class="title">{{ title }}</div>
+    <div class="title">{{ detail.name }}</div>
   </div>
 </template>
 
@@ -13,22 +13,11 @@ import { numberFormat } from "@/utils/utils";
 export default {
   name: "Cover",
   props: {
-    imgURL: {
-      type: String,
-      default: ""
-    },
-    title: {
-      type: String,
-      default: ""
-    },
-    playCount: {
-      type: Number,
-      default: 0
-    }
+    detail: Object
   },
   computed: {
     formatPlayCount() {
-      return numberFormat(this.playCount);
+      return numberFormat(this.detail.playCount);
     }
   }
 };
@@ -61,9 +50,15 @@ export default {
   }
 }
 .title {
-  @include no-wrap;
-  margin-top: 0.05rem;
-  text-indent: 0.02rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   width: 1.1rem;
+  height: 0.32rem;
+  line-height: 0.18rem;
+  margin-top: 0.05rem;
+  padding-left: 0.02rem;
 }
 </style>

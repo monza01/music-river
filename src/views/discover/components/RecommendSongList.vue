@@ -1,18 +1,18 @@
 <template>
   <div class="recommend-song-list">
-    <the-title title="为你推荐"></the-title>
-    <div class="wrapper">
-      <loader v-if="!recommendSongList.length"></loader>
-      <div class="covers">
-        <Cover
-          class="item"
-          v-for="item in recommendSongList"
-          :imgURL="item.picUrl"
-          :title="item.name"
-          :playCount="item.playCount"
-          :key="item.id"
-        >
-        </Cover>
+    <the-title title="为你推荐" link="/playlists/recommend"></the-title>
+    <div class="outer-wrapper">
+      <div class="wrapper">
+        <loader v-if="!recommendSongList.length"></loader>
+        <div class="covers">
+          <Cover
+            class="item"
+            v-for="item in recommendSongList"
+            :key="item.id"
+            :detail="item"
+          >
+          </Cover>
+        </div>
       </div>
     </div>
   </div>
@@ -46,14 +46,18 @@ export default {
   padding: 0.15rem 0.15rem 0.15rem 0.1rem;
   margin-top: 0.1rem;
   border-radius: 0.1rem;
-  .wrapper {
-    height: 2.9rem;
+  .outer-wrapper {
+    height: 3.2rem;
     overflow-y: hidden;
-  }
-  .covers {
-    display: flex;
-    width: 189%;
-    flex-wrap: wrap;
+    .wrapper {
+      height: 3.4rem;
+      overflow-y: hidden;
+      .covers {
+        display: flex;
+        width: 189%;
+        flex-wrap: wrap;
+      }
+    }
   }
 }
 </style>

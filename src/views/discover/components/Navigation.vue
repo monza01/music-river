@@ -5,9 +5,9 @@
         <img src="~@/assets/images/icon/calendar.png" alt="" />
       </template>
     </nav-item>
-    <nav-item title="私人FM">
+    <nav-item title="歌手">
       <template v-slot:icon>
-        <img src="~@/assets/images/icon/fm.png" alt="" />
+        <img src="~@/assets/images/icon/singer.png" alt="" />
       </template>
     </nav-item>
     <nav-item title="排行榜">
@@ -15,7 +15,7 @@
         <img src="~@/assets/images/icon/rank.png" alt="" />
       </template>
     </nav-item>
-    <nav-item title="歌单">
+    <nav-item title="歌单" link="/playlists/recommend">
       <template v-slot:icon>
         <img src="~@/assets/images/icon/music-list.png" alt="" />
       </template>

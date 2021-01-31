@@ -4,8 +4,9 @@
     <bg-container
       v-else
       :bg-img-url="profile.backgroundUrl"
-      pageTitle="个人中心"
-      :needBackBtn="false"
+      page-title="个人中心"
+      :needb-ack-btn="false"
+      :remember-scroll="true"
     >
       <template>
         <div class="content">
@@ -52,7 +53,9 @@
           <div class="record">
             <div class="the-title">最近播放（{{ recordLength }}首）</div>
             <music-list :needIndex="false" :play-list="record"></music-list>
-            <div class="check-more">查看更多</div>
+            <div class="check-more" @click="checkMore">
+              {{ logged ? "查看更多" : "去登陆" }}
+            </div>
           </div>
         </div>
       </template>
@@ -123,8 +126,14 @@ export default {
           })
         );
     },
+
     toLoginPage() {
       this.$router.push("/login").catch(err => err);
+    },
+    checkMore() {
+      if (!this.logged) {
+        this.$router.push("/login").catch(err => err);
+      }
     }
   },
   created() {
@@ -149,9 +158,9 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .content {
-  padding: 0.7rem 0.15rem 0.5rem;
+  padding: 0.7rem 0.15rem 0;
   margin-top: 1.9rem;
-  min-height: 100%;
+  min-height: calc(100% - 1rem);
   background-color: $gray-light;
   border-top-left-radius: 0.2rem;
   border-top-right-radius: 0.2rem;

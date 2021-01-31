@@ -1,6 +1,6 @@
 <template>
   <div class="chosen-song-list">
-    <the-title title="精选歌单"></the-title>
+    <the-title title="精选歌单" :link="link"></the-title>
     <mini-tab-bar
       :tags="tags"
       @tagClicked="tagClicked"
@@ -12,10 +12,8 @@
         <div class="covers">
           <Cover
             v-for="item in chosenSongList[n - 1]"
-            :imgURL="item.coverImgUrl"
-            :title="item.name"
-            :playCount="item.playCount"
             :key="item.id"
+            :detail="item"
           >
           </Cover>
         </div>
@@ -40,6 +38,12 @@ export default {
     Swiper,
     SwiperSlide
   },
+  data() {
+    return {
+      links: ["e&a", "mandarin", "popular", "recommend", "rock", "rap"],
+      link: "/playlists/e&a"
+    };
+  },
   props: {
     chosenSongList: {
       type: Object,
@@ -58,6 +62,7 @@ export default {
     tagClicked(currentTag) {
       this.$emit("tagClicked", currentTag);
       this.$refs.mySwiper.$swiper.slideTo(currentTag);
+      this.link = "/playlists/" + this.links[currentTag];
     },
     slideChange() {
       const activeIndex = this.$refs.mySwiper.$swiper.realIndex;
@@ -72,7 +77,7 @@ export default {
 
 .chosen-song-list {
   background-color: $white;
-  height: 3.62rem;
+  height: 4.1rem;
   padding: 0.15rem 0.15rem 0.15rem 0.1rem;
   border-bottom-left-radius: 0.1rem;
   border-bottom-right-radius: 0.1rem;
