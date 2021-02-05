@@ -11,6 +11,8 @@ import Mandarin from "@/views/playlists/children/Mandarin";
 import Popular from "@/views/playlists/children/Popular";
 import Rock from "@/views/playlists/children/Rock";
 import Rap from "@/views/playlists/children/Rap";
+import PlaylistsDetail from "@/views/playlists-detail/PlaylistsDetail";
+import Ranks from "@/views/ranks/Ranks";
 
 const routes = [
   {
@@ -98,6 +100,22 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: "/playlists/detail/:id",
+    component: PlaylistsDetail,
+    meta: {
+      title: "歌单详情",
+      index: 2
+    }
+  },
+  {
+    path: "/ranks",
+    component: Ranks,
+    meta: {
+      title: "排行榜",
+      index: 1
+    }
   }
 ];
 

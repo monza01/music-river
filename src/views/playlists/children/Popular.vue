@@ -9,9 +9,13 @@
 
 <script>
 import { playlistsMixin } from "@/utils/mixin";
+import CategoryPlaylists from "@/views/playlists/components/CategoryPlaylists";
 
 export default {
-  mixins: [playlistsMixin]
+  mixins: [playlistsMixin],
+  components: {
+    CategoryPlaylists
+  }
 };
 </script>
 

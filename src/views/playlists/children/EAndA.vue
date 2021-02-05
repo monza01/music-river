@@ -8,10 +8,14 @@
 </template>
 
 <script>
+import CategoryPlaylists from "@/views/playlists/components/CategoryPlaylists";
 import { playlistsMixin } from "@/utils/mixin";
 
 export default {
-  mixins: [playlistsMixin]
+  mixins: [playlistsMixin],
+  components: {
+    CategoryPlaylists
+  }
 };
 </script>
 

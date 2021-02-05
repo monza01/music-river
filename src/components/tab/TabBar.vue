@@ -9,7 +9,7 @@
       </template>
     </tab-item>
 
-    <div>
+    <div class="record-wrapper">
       <img
         class="record"
         src="~@/assets/images/icon/record-player.png"
@@ -51,9 +51,12 @@ export default {
   background-color: $white;
   z-index: 9;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
-  .record {
-    transform: translateY(-5px);
-    width: 0.5rem;
+  .record-wrapper {
+    width: 1rem;
+    .record {
+      width: 0.48rem;
+      margin-left: 0.26rem;
+    }
   }
 }
 </style>

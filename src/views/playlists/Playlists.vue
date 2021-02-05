@@ -17,14 +17,16 @@
 <script>
 import PageTitle from "@/components/title/PageTitle";
 import MiniTabBar from "@/components/tab/MiniTabBar";
+import { mapMutations } from "vuex";
 
 export default {
-  name: "playlists",
+  name: "Playlists",
   data() {
     return {
       tags: ["推荐", "欧美", "华语", "流行", "摇滚", "说唱"],
       links: ["recommend", "e&a", "mandarin", "popular", "rock", "rap"],
-      currentTag: 0
+      currentTag: 0,
+      alive: true
     };
   },
   components: {
@@ -33,8 +35,10 @@ export default {
   },
   mounted() {
     this.setTag();
+    this.SET_CACHE_VIEWS("Playlists");
   },
   methods: {
+    ...mapMutations(["SET_CACHE_VIEWS", "REMOVE_CACHE_VIEWS"]),
     setTag() {
       this.currentTag = this.tags.indexOf(this.$route.meta.cat);
       if (this.currentTag === -1) {
@@ -49,6 +53,14 @@ export default {
         })
         .catch(err => err);
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.meta.index > from.meta.index) {
+      this.SET_CACHE_VIEWS("Playlists");
+    } else {
+      this.REMOVE_CACHE_VIEWS("Playlists");
+    }
+    next();
   }
 };
 </script>

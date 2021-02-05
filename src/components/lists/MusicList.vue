@@ -6,19 +6,19 @@
         @click="setAnimate(index)"
         :class="currentIndex === index ? 'click-animate' : ''"
       >
-        <img class="song-cover" v-lazy="item.al.picUrl" alt="cover" />
         <div v-if="needIndex" class="index" :class="isTop3(index)">
           {{ indexFormat(index) }}
         </div>
         <div class="msg">
           <p class="song-name">{{ item.name }}</p>
           <div class="sub-msg">
+            <span v-if="item.copyright" class="copyright">VIP</span>
             <span v-for="(artist, index) in item.ar" :key="index"
               >{{ artist.name }}<span v-if="item.ar.length > index + 1">/</span>
             </span>
+            <span> - {{ item.al.name }}</span>
           </div>
         </div>
-        <!--        <span class="icon-report"></span>-->
         <span class="icon-dots-three-vertical"></span>
       </div>
     </li>
@@ -45,17 +45,16 @@ export default {
     needIndex: {
       type: Boolean,
       default: true
+    },
+    specialIndex: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
     indexFormat() {
       return function(index) {
         return formatIndex(index);
-      };
-    },
-    isTop3() {
-      return function(index) {
-        return index <= 2 ? "top3" : "";
       };
     }
   },
@@ -68,6 +67,11 @@ export default {
       const timer = setTimeout(() => {
         this.currentIndex = -1;
       }, 300);
+    },
+    isTop3(index) {
+      if (this.needIndex && this.specialIndex) {
+        return index <= 2 ? "top3" : "";
+      }
     }
   }
 };
@@ -78,51 +82,57 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .item {
-  height: 0.7rem;
+  height: 0.6rem;
 }
 .wrapper {
   display: flex;
-  height: 0.7rem;
-  padding-bottom: 0.1rem;
   justify-content: space-between;
+  height: 0.6rem;
+  padding-bottom: 0.1rem;
   .song-cover {
-    @include box(0.6rem, 0.6rem, 0.1rem);
+    @include box(0.5rem, 0.5rem, 0.1rem);
   }
   .index {
-    margin: 0 0.1rem;
-    line-height: 0.6rem;
+    text-align: center;
+    line-height: 0.5rem;
     font-weight: 700;
     font-size: $font-size-m;
+    color: $gray;
   }
   .top3 {
     color: $red;
   }
   .msg {
     display: flex;
-    width: 55%;
+    width: 80%;
     flex-direction: column;
     justify-content: space-around;
-    padding: 0.1rem 0;
-    border-bottom: 1px solid $gray-light;
+    padding: 0 0.1rem 0 0.1rem;
     .song-name {
       @include no-wrap;
       font-size: $font-size-m;
-      line-height: 0.18rem;
       font-weight: 500;
     }
     .sub-msg {
       @include no-wrap;
       font-size: $font-size-s;
-      line-height: 0.16rem;
       color: $gray-deep;
+      height: 0.15rem;
+      .copyright {
+        @include border($red);
+        @include height(14px);
+        display: inline-block;
+        padding: 0 3px;
+        margin-right: 0.05rem;
+        border-radius: 4px;
+        color: $red;
+        font-size: 10px;
+        text-align: center;
+      }
     }
   }
 }
-//.icon-report {
-//  font-size: $font-size-l;
-//  line-height: 0.6rem;
-//  color: $yellow;
-//}
+
 .icon-dots-three-vertical {
   font-size: $font-size-s;
   line-height: 0.6rem;
@@ -132,12 +142,12 @@ export default {
 
 .click-animate {
   animation-name: clicked;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
 }
 
 @keyframes clicked {
   50% {
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
 
   100% {

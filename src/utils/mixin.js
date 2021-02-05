@@ -1,5 +1,4 @@
 import { getChosenSongs } from "@/api/common";
-import CategoryPlaylists from "@/views/playlists/components/CategoryPlaylists";
 
 const LIMIT = 30;
 
@@ -12,9 +11,6 @@ export const playlistsMixin = {
       total: 0,
       pullUpLoad: true
     };
-  },
-  components: {
-    CategoryPlaylists
   },
   created() {
     this.OFFSET = 30;
@@ -49,5 +45,33 @@ export const playlistsMixin = {
         });
       }
     }
+  }
+};
+
+export const routerMixin = {
+  methods: {
+    toPlaylistsDetail(id) {
+      this.$router
+        .push({
+          path: `/playlists/detail/${id}`,
+          query: {
+            type: "music-lists"
+          }
+        })
+        .catch(err => err);
+    },
+    toRankDetail(id) {
+      this.$router
+        .push({
+          path: `/playlists/detail/${id}`,
+          query: {
+            type: "rank"
+          }
+        })
+        .catch(err => err);
+    }
+  },
+  deactivated() {
+    this.bus.$off(["coverClicked", "rankClicked"]);
   }
 };

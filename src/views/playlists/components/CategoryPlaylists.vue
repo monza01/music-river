@@ -23,14 +23,14 @@
 <script>
 import MyScroll from "@/components/scroll/MyScroll";
 import SongListCover from "@/components/cover/SongListCover";
-import Loader from "@/components/loader/Loader";
+import { routerMixin } from "@/utils/mixin";
 
 export default {
+  mixins: [routerMixin],
   name: "CategoryPlaylists",
   components: {
     MyScroll,
-    SongListCover,
-    Loader
+    SongListCover
   },
   props: {
     playlists: Array,
@@ -47,6 +47,11 @@ export default {
     emitPullUp() {
       this.$emit("pullUp");
     }
+  },
+  activated() {
+    this.bus.$on("coverClicked", id => {
+      this.toPlaylistsDetail(id);
+    });
   }
 };
 </script>
@@ -56,7 +61,7 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .category-playlists {
-  height: calc(100% - 1.45rem);
+  height: calc(100% - 0.85rem);
   .lists {
     display: flex;
     justify-content: space-between;

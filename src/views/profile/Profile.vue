@@ -5,7 +5,7 @@
       v-else
       :bg-img-url="profile.backgroundUrl"
       page-title="个人中心"
-      :needb-ack-btn="false"
+      :need-back-btn="false"
       :remember-scroll="true"
     >
       <template>
@@ -17,7 +17,7 @@
             :level="level"
             @loginBtnClicked="toLoginPage"
           ></user-card>
-          <div class="favorite">
+          <div class="favorite" @click="toPlayListDetail(favoriteSongs.id)">
             <img
               v-if="logged"
               class="coverImg"
@@ -51,11 +51,8 @@
             <disc-list :play-list-data="collectedPlaylists"></disc-list>
           </div>
           <div class="record">
-            <div class="the-title">最近播放（{{ recordLength }}首）</div>
+            <div class="the-title">最近播放（{{ record.length }}首）</div>
             <music-list :needIndex="false" :play-list="record"></music-list>
-            <div class="check-more" @click="checkMore">
-              {{ logged ? "查看更多" : "去登陆" }}
-            </div>
           </div>
         </div>
       </template>
@@ -71,8 +68,10 @@ import BgContainer from "@/components/bg-container/BgContainer";
 import UserCard from "@/components/user/UserCard";
 import DiscList from "@/components/lists/DiscList";
 import MusicList from "@/components/lists/MusicList";
+import { routerMixin } from "@/utils/mixin";
 
 export default {
+  mixins: [routerMixin],
   name: "Profile",
   data() {
     return {
@@ -81,7 +80,6 @@ export default {
       tags: ["创建歌单", "收藏歌单", "最近播放"],
       loading: false,
       record: [],
-      recordLength: 0,
       favoriteSongs: {},
       createdPlaylists: [],
       collectedPlaylists: []
@@ -93,6 +91,11 @@ export default {
     DiscList,
     MusicList
   },
+  created() {
+    if (this.logged) {
+      this.getData();
+    }
+  },
   computed: {
     ...mapGetters(["logged", "userId"])
   },
@@ -102,17 +105,13 @@ export default {
       axios
         .all([
           getProfile({ uid: this.userId }),
-          getRecord({ uid: this.userId, type: 1 }),
-          getUserPlaylists({ uid: this.userId })
+          getUserPlaylists({ uid: this.userId }),
+          getRecord({ uid: this.userId, type: 1 })
         ])
         .then(
-          axios.spread((profile, record, userPlaylists) => {
+          axios.spread((profile, userPlaylists, record) => {
             this.profile = profile.profile;
             this.level = profile.level;
-            this.recordLength = record.weekData.length;
-            this.record = record.weekData.slice(0, 10).map(item => {
-              return item.song;
-            });
             userPlaylists.playlist.forEach(item => {
               if (item.creator.userId === this.userId) {
                 this.createdPlaylists.push(item);
@@ -122,23 +121,25 @@ export default {
             });
             this.favoriteSongs = this.createdPlaylists[0];
             this.createdPlaylists.shift();
+            this.record = record.weekData.map(item => {
+              return item.song;
+            });
             this.loading = false;
           })
         );
     },
-
     toLoginPage() {
       this.$router.push("/login").catch(err => err);
     },
-    checkMore() {
-      if (!this.logged) {
-        this.$router.push("/login").catch(err => err);
-      }
-    }
-  },
-  created() {
-    if (this.logged) {
-      this.getData();
+    toPlayListDetail(id) {
+      this.$router
+        .push({
+          path: `/playlists/detail/${id}`,
+          query: {
+            type: "music-lists"
+          }
+        })
+        .catch(err => err);
     }
   },
   watch: {
@@ -149,6 +150,11 @@ export default {
         window.location.reload();
       }
     }
+  },
+  activated() {
+    this.bus.$on("discListClicked", id => {
+      this.toPlaylistsDetail(id);
+    });
   }
 };
 </script>
@@ -158,15 +164,15 @@ export default {
 @import "~@/assets/style/mixin.scss";
 
 .content {
-  padding: 0.7rem 0.15rem 0;
-  margin-top: 1.9rem;
+  padding: 0.7rem 0.15rem 0.6rem;
+  margin-top: 1rem;
   min-height: calc(100% - 1rem);
   background-color: $gray-light;
   border-top-left-radius: 0.2rem;
   border-top-right-radius: 0.2rem;
   .user-card {
     position: absolute;
-    top: 1.5rem;
+    top: 0.6rem;
   }
   .favorite {
     display: flex;

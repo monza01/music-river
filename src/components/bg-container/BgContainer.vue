@@ -1,6 +1,7 @@
 <template>
   <div class="bg-container">
-    <div class="bgImg" :style="bgStyle" ref="bgImage"></div>
+    <div class="bg-wrapper"></div>
+    <img class="bg-img" :src="bgImgUrl" alt="" ref="bgImage" />
     <page-title
       :pageTitle="pageTitle"
       :needBackBtn="needBackBtn"
@@ -31,11 +32,13 @@ export default {
   props: {
     bgImgUrl: {
       type: String,
-      default:
-        "http://p1.music.126.net/XUF-8AwX4s5h7gIByOz1Yg==/109951165666497079.jpg"
+      default: ""
     },
     pageTitle: String,
-    needBackBtn: Boolean,
+    needBackBtn: {
+      type: Boolean,
+      default: true
+    },
     titleColor: {
       type: String,
       default: "#000"
@@ -59,29 +62,16 @@ export default {
       this.scrollY = pos;
     }
   },
-  computed: {
-    bgStyle() {
-      return `background-image:url(${this.bgImgUrl})`;
-    }
-  },
-  mounted() {
-    this.imageHeight = this.$refs.bgImage.clientHeight;
-  },
+  computed: {},
   watch: {
     scrollY(newVal) {
       let scale = 1;
-      let opacity = 1;
-      let num = 255;
-      const percent = Math.abs(newVal / this.imageHeight);
-      if (newVal >= 0) {
-        opacity = Math.max(0.4, 1 - percent);
-        num = Math.max(0, Math.floor(255 * (1 - percent)));
-      } else {
-        scale = 1 + percent;
+      if (newVal <= 0) {
+        scale = 1 + Math.abs(newVal / this.$refs.bgImage.clientHeight);
       }
-      this.$refs.bgImage.style[transform] = `scale(${scale})`;
-      this.$refs.bgImage.style.opacity = opacity;
-      this.$refs.theTitle.$el.style.color = `rgb(${num},${num},${num})`;
+      this.$refs.bgImage.style[
+        transform
+      ] = `translate3d(-15%, -15%, 0) scale(${scale})`;
     }
   }
 };
@@ -94,18 +84,28 @@ export default {
 .bg-container {
   position: relative;
   height: 100%;
-  .bgImg {
-    @include wh(100%, 0);
+  overflow: hidden;
+  .bg-wrapper {
+    @include wh(100%, 70%);
     position: absolute;
-    padding-top: 2.5rem;
-    transform-origin: top;
-    background-size: cover;
+    top: 0;
+    background-color: #bababa;
+  }
+  .bg-img {
+    width: 130%;
+    transform: translate3d(-15%, -15%, 0);
+    filter: blur(40px);
   }
   .the-page-title {
+    position: absolute;
+    top: 0;
     color: $white;
+    width: 100%;
   }
   .my-scroll {
-    height: calc(100% - 1rem);
+    height: calc(100% - 0.4rem);
+    position: absolute;
+    top: 0.4rem;
   }
 }
 </style>

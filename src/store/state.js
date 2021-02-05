@@ -1,7 +1,8 @@
 const state = {
   logged: false,
   userId: 0,
-  userAvatar: ""
+  userAvatar: "",
+  cacheViews: []
 };
 
 export default state;

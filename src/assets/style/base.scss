@@ -18,6 +18,8 @@ html{
   touch-action: manipulation;
 }
 body{
+  max-width: 768px;
+  margin: 0 auto;
   font-size: 0.14rem;
 }
 

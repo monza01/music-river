@@ -16,6 +16,7 @@ Vue.directive("focus", {
     el.focus();
   }
 });
+Vue.prototype.bus = new Vue();
 
 Vue.config.productionTip = false;
 

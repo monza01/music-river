@@ -10,7 +10,7 @@
         <img src="~@/assets/images/icon/singer.png" alt="" />
       </template>
     </nav-item>
-    <nav-item title="排行榜">
+    <nav-item title="排行榜" link="/ranks">
       <template v-slot:icon>
         <img src="~@/assets/images/icon/rank.png" alt="" />
       </template>

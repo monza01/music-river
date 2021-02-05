@@ -1,6 +1,11 @@
 <template>
   <ul>
-    <li v-for="item in playListData" :key="item.id" class="disc-item">
+    <li
+      v-for="item in playListData"
+      :key="item.id"
+      class="disc-item"
+      @click="itemClick(item.id)"
+    >
       <img class="coverImg" v-lazy="item.coverImgUrl" alt="" />
       <div class="msg">
         <p class="name-msg">{{ item.name }}</p>
@@ -17,6 +22,11 @@ export default {
   name: "DiscList",
   props: {
     playListData: Array
+  },
+  methods: {
+    itemClick(id) {
+      this.bus.$emit("discListClicked", id);
+    }
   }
 };
 </script>

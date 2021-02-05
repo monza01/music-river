@@ -53,8 +53,12 @@
 
 <script>
 import axios from "axios";
-import { getBanner, getRankSummary } from "@/api/discover";
-import { getChosenSongs, getRecommendSongList } from "@/api/common";
+import { getBanner } from "@/api/discover";
+import {
+  getChosenSongs,
+  getRecommendSongList,
+  getRankSummary
+} from "@/api/common";
 import { getPlaylist } from "@/api/common";
 import { randomNum } from "@/utils/utils";
 import MyScroll from "@/components/scroll/MyScroll";
@@ -66,8 +70,10 @@ import ChosenSongList from "@/views/discover/components/ChosenSongList";
 import RankSummary from "@/views/discover/components/RankSummary";
 import RecommendRank from "@/views/discover/components/recommendRank";
 import { mapGetters } from "vuex";
+import { routerMixin } from "@/utils/mixin";
 
 export default {
+  mixins: [routerMixin],
   name: "Discover",
   components: {
     MyScroll,
@@ -193,6 +199,14 @@ export default {
     currentTag() {
       this.getChosenSongList();
     }
+  },
+  activated() {
+    this.bus.$on("coverClicked", id => {
+      this.toPlaylistsDetail(id);
+    });
+    this.bus.$on("rankClicked", id => {
+      this.toRankDetail(id);
+    });
   }
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
   <div class="rank-summary">
-    <the-title class="the-title" title="排行榜"></the-title>
+    <the-title class="the-title" title="排行榜" link="/ranks"></the-title>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="(item, index) in rankData" :key="index">
-        <Top3 :listData="item"></Top3>
+        <Top3 :listData="item" :bg-color="bgColor[index]"></Top3>
       </swiper-slide>
     </swiper>
   </div>
@@ -11,7 +11,7 @@
 
 <script>
 import TheTitle from "@/components/title/Title";
-import Top3 from "@/views/discover/components/Top3";
+import Top3 from "@/components/lists/Top3";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
@@ -23,7 +23,8 @@ export default {
         slidesPerView: "auto",
         spaceBetween: 10,
         centeredSlides: true
-      }
+      },
+      bgColor: ["#eaeff5", "#e9f2f1", "#f8e9ee", "#f8f1eb"]
     };
   },
   components: {

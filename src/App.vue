@@ -1,7 +1,7 @@
 <template>
   <div v-if="show" id="app" class="container">
     <transition :name="transitionName">
-      <keep-alive include="Discover,Profile">
+      <keep-alive :include="['Discover', 'Profile', ...cacheViews]">
         <router-view> </router-view>
       </keep-alive>
     </transition>
@@ -16,7 +16,7 @@
 import TabBar from "@/components/tab/TabBar";
 import Player from "@/components/player/Player";
 import { checkUserStatus } from "@/api/user";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -33,6 +33,10 @@ export default {
   created() {
     this.checkUserStatus();
   },
+  updated() {
+    this.showTab =
+      this.$route.path === "/discover" || this.$route.path === "/profile";
+  },
   methods: {
     ...mapActions(["manageUser"]),
     checkUserStatus() {
@@ -48,9 +52,11 @@ export default {
       });
     }
   },
+  computed: {
+    ...mapGetters(["cacheViews"])
+  },
   watch: {
     $route(to, from) {
-      this.showTab = to.path === "/discover" || to.path === "/profile";
       if (to.meta.index > from.meta.index) {
         this.transitionName = "slide-left";
       } else if (to.meta.index < from.meta.index) {
@@ -65,7 +71,4 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/transition.scss";
-#app {
-  margin: 0 auto;
-}
 </style>
