@@ -13,6 +13,8 @@ import Rock from "@/views/playlists/children/Rock";
 import Rap from "@/views/playlists/children/Rap";
 import PlaylistsDetail from "@/views/playlists-detail/PlaylistsDetail";
 import Ranks from "@/views/ranks/Ranks";
+import DailySongs from "@/views/daily-songs/DailySongs";
+import TopSingers from "@/views/top-singers/TopSingers";
 
 const routes = [
   {
@@ -114,6 +116,22 @@ const routes = [
     component: Ranks,
     meta: {
       title: "排行榜",
+      index: 1
+    }
+  },
+  {
+    path: "/daily",
+    component: DailySongs,
+    meta: {
+      title: "今日推荐",
+      index: 1
+    }
+  },
+  {
+    path: "/top-singers",
+    component: TopSingers,
+    meta: {
+      title: "歌手榜",
       index: 1
     }
   }

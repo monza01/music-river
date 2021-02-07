@@ -52,7 +52,7 @@
           </div>
           <div class="record">
             <div class="the-title">最近播放（{{ record.length }}首）</div>
-            <music-list :needIndex="false" :play-list="record"></music-list>
+            <music-list :special-index="false" :play-list="record"></music-list>
           </div>
         </div>
       </template>

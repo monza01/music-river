@@ -8,7 +8,7 @@
       </div>
     </div>
     <loader class="the-loader" v-if="!rankList.tracks"></loader>
-    <music-list :playList="rankList.tracks"></music-list>
+    <music-list :cover="true" :playList="rankList.tracks"></music-list>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="user-card">
     <div class="avatar">
-      <img v-if="logged" :src="profile.avatarUrl" alt="" />
+      <img v-if="logged" :src="setUrl(profile.avatarUrl, 76, 76)" alt="" />
       <img v-else src="~@/assets/images/icon/avatar.png" alt="" />
     </div>
     <div v-if="logged" class="nick-name">{{ profile.nickname }}</div>

@@ -1,11 +1,11 @@
 <template>
   <div class="nav">
-    <nav-item title="今日推荐">
+    <nav-item title="今日推荐" link="/daily">
       <template v-slot:icon>
         <img src="~@/assets/images/icon/calendar.png" alt="" />
       </template>
     </nav-item>
-    <nav-item title="歌手">
+    <nav-item title="歌手" link="/top-singers">
       <template v-slot:icon>
         <img src="~@/assets/images/icon/singer.png" alt="" />
       </template>

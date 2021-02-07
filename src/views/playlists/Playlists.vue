@@ -25,8 +25,7 @@ export default {
     return {
       tags: ["推荐", "欧美", "华语", "流行", "摇滚", "说唱"],
       links: ["recommend", "e&a", "mandarin", "popular", "rock", "rap"],
-      currentTag: 0,
-      alive: true
+      currentTag: 0
     };
   },
   components: {
@@ -67,7 +66,6 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
-@import "~@/assets/style/transition.scss";
 
 .playlists {
   background-color: $white;

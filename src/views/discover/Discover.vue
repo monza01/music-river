@@ -38,8 +38,7 @@
             :recommendSongList="recommendSongList"
           ></recommend-song-list>
           <recommend-rank
-            ref="bill-board"
-            class="billboard"
+            class="recommend-rank"
             :rankList="rankPlayList"
           ></recommend-rank>
           <div v-if="rankPlayList.tracks" class="bottom">
@@ -62,13 +61,13 @@ import {
 import { getPlaylist } from "@/api/common";
 import { randomNum } from "@/utils/utils";
 import MyScroll from "@/components/scroll/MyScroll";
-import HeaderOfDiscover from "@/views/discover/components/headerOfDiscover";
+import HeaderOfDiscover from "@/views/discover/components/HeaderOfDiscover";
 import Carousel from "@/views/discover/components/Carousel";
 import Navigation from "@/views/discover/components/Navigation";
 import RecommendSongList from "@/views/discover/components/RecommendSongList";
 import ChosenSongList from "@/views/discover/components/ChosenSongList";
 import RankSummary from "@/views/discover/components/RankSummary";
-import RecommendRank from "@/views/discover/components/recommendRank";
+import RecommendRank from "@/views/discover/components/RecommendRank";
 import { mapGetters } from "vuex";
 import { routerMixin } from "@/utils/mixin";
 
@@ -152,7 +151,7 @@ export default {
       const rankId = this.rankCategory[num];
       getPlaylist({ id: rankId }).then(res => {
         this.rankPlayList = res.playlist;
-        this.rankPlayList.tracks = this.rankPlayList.tracks.slice(0, 10);
+        this.rankPlayList.tracks = this.rankPlayList.tracks.slice(0, 20);
       });
     },
     loginClicked() {
@@ -244,7 +243,7 @@ export default {
 .rank-summary {
   margin-top: 0.1rem;
 }
-.billboard {
+.recommend-rank {
   margin-top: 0.1rem;
 }
 .bottom {

@@ -1,7 +1,12 @@
 <template>
   <div @click="coverClicked(detail.id)">
     <div class="cover">
-      <img v-lazy="detail.coverImgUrl || detail.picUrl" alt="" />
+      <img
+        v-if="detail.coverImgUrl"
+        v-lazy="setUrl(detail.coverImgUrl, 105, 105)"
+        alt=""
+      />
+      <img v-else v-lazy="setUrl(detail.picUrl, 105, 105)" alt="" />
       <div v-if="subMsgType === 'playCount'" class="play-count icon-play">
         {{ formatPlayCount }}
       </div>

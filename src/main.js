@@ -6,7 +6,9 @@ import VueCookies from "vue-cookies";
 import store from "./store";
 import App from "./App.vue";
 import Loader from "@/components/loader/Loader";
+import globalMixin from "@/utils/globalMixin";
 
+Vue.mixin(globalMixin);
 Vue.use(VueLazyLoad);
 Vue.use(VueCookies);
 Vue.$cookies.config("7d");

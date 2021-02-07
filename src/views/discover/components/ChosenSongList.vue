@@ -45,18 +45,8 @@ export default {
     };
   },
   props: {
-    chosenSongList: {
-      type: Object,
-      default: () => {
-        return {};
-      }
-    },
-    tags: {
-      type: Array,
-      default: () => {
-        return [];
-      }
-    }
+    chosenSongList: Object,
+    tags: Array
   },
   methods: {
     tagClicked(currentTag) {

@@ -5,7 +5,7 @@
     :style="background"
     @click="rankClicked(listData.id)"
   >
-    <img class="cover" v-lazy="listData.coverImgUrl" alt="" />
+    <img class="cover" v-lazy="setUrl(listData.coverImgUrl, 100, 100)" alt="" />
     <div class="list">
       <div class="sup-msg">
         <h3 class="title">{{ listData.name }}</h3>

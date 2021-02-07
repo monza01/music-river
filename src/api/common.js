@@ -19,3 +19,11 @@ export function getRankSummary() {
 export function getSongDetail(params) {
   return request.post("/song/detail", params);
 }
+
+export function getDailySongs() {
+  return request.post("/recommend/songs");
+}
+
+export function getTopSingers(params) {
+  return request.post("/toplist/artist", params);
+}

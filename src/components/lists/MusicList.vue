@@ -6,7 +6,8 @@
         @click="setAnimate(index)"
         :class="currentIndex === index ? 'click-animate' : ''"
       >
-        <div v-if="needIndex" class="index" :class="isTop3(index)">
+        <img class="cover-img" v-lazy="setUrl(item.al.picUrl, 40, 40)" alt="" />
+        <div class="index" :class="isTop3(index)">
           {{ indexFormat(index) }}
         </div>
         <div class="msg">
@@ -42,13 +43,13 @@ export default {
         return [];
       }
     },
-    needIndex: {
-      type: Boolean,
-      default: true
-    },
     specialIndex: {
       type: Boolean,
       default: true
+    },
+    cover: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -69,7 +70,7 @@ export default {
       }, 300);
     },
     isTop3(index) {
-      if (this.needIndex && this.specialIndex) {
+      if (this.specialIndex) {
         return index <= 2 ? "top3" : "";
       }
     }
@@ -89,10 +90,13 @@ export default {
   justify-content: space-between;
   height: 0.6rem;
   padding-bottom: 0.1rem;
-  .song-cover {
-    @include box(0.5rem, 0.5rem, 0.1rem);
+  .cover-img {
+    @include box(0.4rem, 0.4rem, 0.1rem);
+    margin-right: 0.05rem;
+    margin-top: 0.03rem;
   }
   .index {
+    width: 0.27rem;
     text-align: center;
     line-height: 0.5rem;
     font-weight: 700;
@@ -104,7 +108,7 @@ export default {
   }
   .msg {
     display: flex;
-    width: 80%;
+    width: 70%;
     flex-direction: column;
     justify-content: space-around;
     padding: 0 0.1rem 0 0.1rem;
@@ -120,11 +124,11 @@ export default {
       height: 0.15rem;
       .copyright {
         @include border($red);
-        @include height(14px);
+        @include height(0.14rem);
         display: inline-block;
-        padding: 0 3px;
+        padding: 0 0.03rem;
         margin-right: 0.05rem;
-        border-radius: 4px;
+        border-radius: 0.04rem;
         color: $red;
         font-size: 10px;
         text-align: center;

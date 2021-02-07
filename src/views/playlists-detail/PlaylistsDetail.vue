@@ -136,7 +136,7 @@ export default {
   .list-content {
     position: relative;
     .count {
-      @include position(-0.15rem, -0.15rem);
+      @include position(-0.2rem, -0.05rem);
       font-size: $font-size-xs;
       color: $gray;
       font-weight: 700;

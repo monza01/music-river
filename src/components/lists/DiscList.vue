@@ -6,7 +6,7 @@
       class="disc-item"
       @click="itemClick(item.id)"
     >
-      <img class="coverImg" v-lazy="item.coverImgUrl" alt="" />
+      <img class="coverImg" v-lazy="setUrl(item.coverImgUrl, 60, 60)" alt="" />
       <div class="msg">
         <p class="name-msg">{{ item.name }}</p>
         <p class="sub-msg">
