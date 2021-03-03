@@ -46,10 +46,6 @@ export default {
     specialIndex: {
       type: Boolean,
       default: true
-    },
-    cover: {
-      type: Boolean,
-      default: false
     }
   },
   computed: {
@@ -108,7 +104,7 @@ export default {
   }
   .msg {
     display: flex;
-    width: 70%;
+    width: 68%;
     flex-direction: column;
     justify-content: space-around;
     padding: 0 0.1rem 0 0.1rem;

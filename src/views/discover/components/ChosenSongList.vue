@@ -1,6 +1,6 @@
 <template>
   <div class="chosen-song-list">
-    <the-title title="精选歌单" :link="link"></the-title>
+    <the-title title="精选歌单" link="/playlists"></the-title>
     <mini-tab-bar
       :tags="tags"
       @tagClicked="tagClicked"
@@ -38,12 +38,6 @@ export default {
     Swiper,
     SwiperSlide
   },
-  data() {
-    return {
-      links: ["e&a", "mandarin", "popular", "recommend", "rock", "rap"],
-      link: "/playlists/e&a"
-    };
-  },
   props: {
     chosenSongList: Object,
     tags: Array
@@ -52,7 +46,6 @@ export default {
     tagClicked(currentTag) {
       this.$emit("tagClicked", currentTag);
       this.$refs.mySwiper.$swiper.slideTo(currentTag);
-      this.link = "/playlists/" + this.links[currentTag];
     },
     slideChange() {
       const activeIndex = this.$refs.mySwiper.$swiper.realIndex;

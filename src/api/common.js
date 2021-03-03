@@ -27,3 +27,23 @@ export function getDailySongs() {
 export function getTopSingers(params) {
   return request.post("/toplist/artist", params);
 }
+
+export function getSingerDetail(params) {
+  return request.post("/artist/detail", params);
+}
+
+export function getSingerTopSongs(params) {
+  return request.post("/artist/top/song", params);
+}
+
+export function getHotSearch() {
+  return request.get("/search/hot/detail");
+}
+
+export function getSearchSuggestion(params) {
+  return request.post("/search/suggest", params);
+}
+
+export function getSearchResult(params) {
+  return request.post("/cloudsearch", params);
+}

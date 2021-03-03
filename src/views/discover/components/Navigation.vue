@@ -5,7 +5,7 @@
         <img src="~@/assets/images/icon/calendar.png" alt="" />
       </template>
     </nav-item>
-    <nav-item title="歌手" link="/top-singers">
+    <nav-item title="歌手榜" link="/singers">
       <template v-slot:icon>
         <img src="~@/assets/images/icon/singer.png" alt="" />
       </template>
@@ -15,7 +15,7 @@
         <img src="~@/assets/images/icon/rank.png" alt="" />
       </template>
     </nav-item>
-    <nav-item title="歌单" link="/playlists/recommend">
+    <nav-item title="歌单" link="/playlists">
       <template v-slot:icon>
         <img src="~@/assets/images/icon/music-list.png" alt="" />
       </template>

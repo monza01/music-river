@@ -8,64 +8,66 @@
       ref="miniTab"
       @tagClicked="changeTag"
     ></mini-tab-bar>
-    <my-scroll class="my-scroll">
-      <template v-slot:scrollContent>
-        <div class="content">
-          <div class="updateTime">最近更新:{{ updateTime }}</div>
-          <singer-list :singers="singers[currentTag]"></singer-list>
-        </div>
-      </template>
-    </my-scroll>
+    <transition>
+      <keep-alive>
+        <component :is="currentTabComponent" :cat="currentTag + 1"></component>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
 <script>
 import PageTitle from "@/components/title/PageTitle";
 import MiniTabBar from "@/components/tab/MiniTabBar";
-import MyScroll from "@/components/scroll/MyScroll";
-import SingerList from "@/components/lists/SingerList";
-import { getTopSingers } from "@/api/common";
+import ChineseSingers from "@/views/top-singers/components/ChineseSingers";
+import EAndASingers from "@/views/top-singers/components/EAndASingers";
+import JapaneseSingers from "@/views/top-singers/components/JapaneseSingers";
+import KoreaSingers from "@/views/top-singers/components/KoreaSingers";
+import { mapMutations } from "vuex";
 
 export default {
-  name: "TopSingers",
+  name: "Singers",
   components: {
     PageTitle,
     MiniTabBar,
-    MyScroll,
-    SingerList
+    ChineseSingers,
+    EAndASingers,
+    JapaneseSingers,
+    KoreaSingers
   },
   data() {
     return {
-      singers: {},
       tags: ["华语", "欧美", "韩国", "日本"],
       currentTag: 0,
-      time: 0
+      componentsName: [
+        "ChineseSingers",
+        "EAndASingers",
+        "JapaneseSingers",
+        "KoreaSingers"
+      ]
     };
   },
-  created() {
-    this.getTopSingers();
-  },
   methods: {
-    getTopSingers() {
-      if (!this.singers[this.currentTag]) {
-        getTopSingers({
-          type: this.currentTag + 1
-        }).then(res => {
-          this.$set(this.singers, this.currentTag, res.list.artists);
-          this.time = res.list.updateTime;
-        });
-      }
-    },
+    ...mapMutations(["SET_CACHE_VIEWS", "REMOVE_CACHE_VIEWS"]),
     changeTag(currentTag) {
       this.currentTag = currentTag;
-      this.getTopSingers();
     }
   },
   computed: {
-    updateTime() {
-      const date = new Date(this.time);
-      return date.getMonth() + 1 + "月" + date.getDate() + "日";
+    currentTabComponent() {
+      return this.componentsName[this.currentTag];
     }
+  },
+  mounted() {
+    this.SET_CACHE_VIEWS("Singers");
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.meta.index > from.meta.index) {
+      this.SET_CACHE_VIEWS("Singers");
+    } else {
+      this.REMOVE_CACHE_VIEWS("Singers");
+    }
+    next();
   }
 };
 </script>
@@ -77,18 +79,6 @@ export default {
   background-color: $white;
   .mini-tab {
     margin: 0.05rem 0.3rem;
-  }
-  .my-scroll {
-    height: calc(100% - 0.8rem);
-    position: absolute;
-    top: 0.8rem;
-  }
-  .content {
-    padding: 0.1rem 0.15rem;
-  }
-  .updateTime {
-    padding: 0.1rem 0;
-    font-size: $font-size-m;
   }
 }
 </style>

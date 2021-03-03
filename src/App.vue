@@ -62,7 +62,7 @@ export default {
       } else if (to.meta.index < from.meta.index) {
         this.transitionName = "slide-right";
       } else {
-        this.transitionName = "fade";
+        this.transitionName = "";
       }
     }
   }

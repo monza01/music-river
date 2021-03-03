@@ -1,7 +1,12 @@
 <template>
   <div class="bg-container">
     <div class="bg-wrapper"></div>
-    <img class="bg-img" :src="bgImgUrl" alt="" ref="bgImage" />
+    <img
+      class="bg-img"
+      :src="setUrl(bgImgUrl, 125, 125)"
+      alt=""
+      ref="bgImage"
+    />
     <page-title
       :pageTitle="pageTitle"
       :needBackBtn="needBackBtn"
@@ -71,7 +76,7 @@ export default {
       }
       this.$refs.bgImage.style[
         transform
-      ] = `translate3d(-15%, -15%, 0) scale(${scale})`;
+      ] = `translate3d(-10%, -10%, 0) scale(${scale})`;
     }
   }
 };
@@ -93,7 +98,7 @@ export default {
   }
   .bg-img {
     width: 130%;
-    transform: translate3d(-15%, -15%, 0);
+    transform: translate3d(-10%, -10%, 0);
     filter: blur(40px);
   }
   .the-page-title {

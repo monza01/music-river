@@ -3,7 +3,7 @@
     <page-title page-title="排行榜"></page-title>
     <loader v-if="loading"></loader>
     <div v-if="!loading" class="top-lists">
-      <my-scroll>
+      <my-scroll :remember-scroll="true">
         <template v-slot:scrollContent>
           <div class="list-container">
             <h3 class="title">推荐榜单</h3>
@@ -52,6 +52,7 @@ import MyScroll from "@/components/scroll/MyScroll";
 import SongListCover from "@/components/cover/SongListCover";
 import Top3 from "@/components/lists/Top3";
 import { routerMixin } from "@/utils/mixin";
+import { mapMutations } from "vuex";
 
 export default {
   mixins: [routerMixin],
@@ -74,7 +75,7 @@ export default {
   created() {
     this.getRanksData();
   },
-  mounted() {
+  activated() {
     this.bus.$on("coverClicked", id => {
       this.toRankDetail(id);
     });
@@ -82,10 +83,17 @@ export default {
       this.toRankDetail(id);
     });
   },
-  beforeDestroy() {
-    this.bus.$off(["coverClicked", "rankClicked"]);
+  mounted() {
+    this.SET_CACHE_VIEWS("Ranks");
+    this.bus.$on("coverClicked", id => {
+      this.toRankDetail(id);
+    });
+    this.bus.$on("rankClicked", id => {
+      this.toRankDetail(id);
+    });
   },
   methods: {
+    ...mapMutations(["SET_CACHE_VIEWS", "REMOVE_CACHE_VIEWS"]),
     getRanksData() {
       this.loading = true;
       getRankSummary().then(res => {
@@ -105,6 +113,14 @@ export default {
         this.loading = false;
       });
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.meta.index > from.meta.index) {
+      this.SET_CACHE_VIEWS("Ranks");
+    } else {
+      this.REMOVE_CACHE_VIEWS("Ranks");
+    }
+    next();
   }
 };
 </script>

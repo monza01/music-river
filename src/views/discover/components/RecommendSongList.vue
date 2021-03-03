@@ -1,6 +1,6 @@
 <template>
   <div class="recommend-song-list">
-    <the-title title="为你推荐" link="/playlists/recommend"></the-title>
+    <the-title title="为你推荐" link="/playlists"></the-title>
     <div class="outer-wrapper">
       <div class="wrapper">
         <loader v-if="!recommendSongList.length"></loader>

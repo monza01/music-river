@@ -3,7 +3,7 @@
     <div class="lists">
       <span class="icon-indent"></span>
     </div>
-    <div class="searchBox">
+    <div class="searchBox" @click="searchClicked">
       <span class="icon-search"></span>
       <span>音乐/歌手</span>
     </div>
@@ -28,6 +28,9 @@ export default {
     },
     avatarClicked() {
       this.$emit("avatarClicked");
+    },
+    searchClicked() {
+      this.$emit("searchClicked");
     }
   },
   props: {

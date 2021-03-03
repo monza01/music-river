@@ -1,4 +1,4 @@
-import { getChosenSongs } from "@/api/common";
+import { getChosenSongs, getTopSingers } from "@/api/common";
 
 const LIMIT = 30;
 
@@ -12,6 +12,10 @@ export const playlistsMixin = {
       pullUpLoad: true
     };
   },
+  props: {
+    cat: String,
+    default: "全部"
+  },
   created() {
     this.OFFSET = 30;
     this.getPlaylistsData();
@@ -20,7 +24,7 @@ export const playlistsMixin = {
     getPlaylistsData() {
       getChosenSongs({
         limit: LIMIT,
-        cat: this.$route.meta.cat,
+        cat: this.cat,
         offset: 0
       }).then(res => {
         this.playlistsData = res.playlists;
@@ -32,7 +36,7 @@ export const playlistsMixin = {
         this.loading = true;
         getChosenSongs({
           limit: LIMIT,
-          cat: this.$route.meta.cat,
+          cat: this.cat,
           offset: this.OFFSET
         }).then(res => {
           res.playlists.forEach(item => {
@@ -44,6 +48,43 @@ export const playlistsMixin = {
           this.pullUpLoad = this.more;
         });
       }
+    }
+  }
+};
+
+export const singersMixin = {
+  data() {
+    return {
+      singers: [],
+      time: 0,
+      loading: true
+    };
+  },
+  props: {
+    cat: {
+      type: Number,
+      default: 1
+    }
+  },
+  created() {
+    this.getTopSingers();
+  },
+
+  methods: {
+    getTopSingers() {
+      getTopSingers({
+        type: this.cat
+      }).then(res => {
+        this.singers = res.list.artists;
+        this.time = res.list.updateTime;
+        this.loading = false;
+      });
+    }
+  },
+  computed: {
+    updateTime() {
+      const date = new Date(this.time);
+      return date.getMonth() + 1 + "月" + date.getDate() + "日";
     }
   }
 };

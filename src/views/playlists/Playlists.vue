@@ -9,7 +9,9 @@
       ref="miniTab"
     ></mini-tab-bar>
     <transition>
-      <keep-alive> <router-view></router-view> </keep-alive>
+      <keep-alive>
+        <component :is="currentTabComponent" :cat="currentCat"></component>
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -17,6 +19,12 @@
 <script>
 import PageTitle from "@/components/title/PageTitle";
 import MiniTabBar from "@/components/tab/MiniTabBar";
+import Recommend from "@/views/playlists/components/Recommend";
+import EAndA from "@/views/playlists/components/EAndA";
+import Mandarin from "@/views/playlists/components/Mandarin";
+import Popular from "@/views/playlists/components/Popular";
+import Rock from "@/views/playlists/components/Rock";
+import Rap from "@/views/playlists/components/Rap";
 import { mapMutations } from "vuex";
 
 export default {
@@ -24,33 +32,42 @@ export default {
   data() {
     return {
       tags: ["推荐", "欧美", "华语", "流行", "摇滚", "说唱"],
-      links: ["recommend", "e&a", "mandarin", "popular", "rock", "rap"],
+      componentsName: [
+        "Recommend",
+        "EAndA",
+        "Mandarin",
+        "Popular",
+        "Rock",
+        "Rap"
+      ],
       currentTag: 0
     };
   },
   components: {
     PageTitle,
-    MiniTabBar
+    MiniTabBar,
+    Recommend,
+    EAndA,
+    Mandarin,
+    Popular,
+    Rock,
+    Rap
   },
   mounted() {
-    this.setTag();
     this.SET_CACHE_VIEWS("Playlists");
   },
   methods: {
     ...mapMutations(["SET_CACHE_VIEWS", "REMOVE_CACHE_VIEWS"]),
-    setTag() {
-      this.currentTag = this.tags.indexOf(this.$route.meta.cat);
-      if (this.currentTag === -1) {
-        this.currentTag = 0;
-      }
-      this.$refs.miniTab.changeTag(this.currentTag);
-    },
     changeTag(currentTag) {
-      this.$router
-        .push({
-          path: "/playlists/" + this.links[currentTag]
-        })
-        .catch(err => err);
+      this.currentTag = currentTag;
+    }
+  },
+  computed: {
+    currentCat() {
+      return this.currentTag ? this.tags[this.currentTag] : "全部";
+    },
+    currentTabComponent() {
+      return this.componentsName[this.currentTag];
     }
   },
   beforeRouteLeave(to, from, next) {

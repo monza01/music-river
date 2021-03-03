@@ -13,6 +13,7 @@
               class="header"
               @loginClicked="loginClicked"
               @avatarClicked="avatarClicked"
+              @searchClicked="searchClicked"
               :avatar="logged ? userAvatar : ''"
             ></header-of-discover>
             <img class="header-bg" :src="currentImgURL" width="100%" alt="" />
@@ -159,6 +160,9 @@ export default {
     },
     avatarClicked() {
       this.$router.push("/profile").catch(err => err);
+    },
+    searchClicked() {
+      this.$router.push("/search").catch(err => err);
     },
     getCurrentImgURL(index) {
       if (timer) {
