@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 import Discover from "@/views/discover/Discover";
 import Profile from "@/views/profile/Profile";
-import Search from "@/views/search/Search";
+import SearchPage from "@/views/search/SearchPage";
 import Login from "@/views/login/Login";
 import Playlists from "@/views/playlists/Playlists";
 import PlaylistsDetail from "@/views/playlists-detail/PlaylistsDetail";
@@ -11,7 +11,7 @@ import Ranks from "@/views/ranks/Ranks";
 import DailySongs from "@/views/daily-songs/DailySongs";
 import TopSingers from "@/views/top-singers/TopSingers";
 import SingerDetail from "@/views/singer-detail/SingerDetail";
-import SearchResult from "@/views/search-result/SearchResult";
+import SearchResult from "@/views/search/SearchResult";
 
 const routes = [
   {
@@ -36,7 +36,7 @@ const routes = [
   },
   {
     path: "/search",
-    component: Search,
+    component: SearchPage,
     meta: {
       title: "搜索",
       index: 0
@@ -99,7 +99,7 @@ const routes = [
     }
   },
   {
-    path: "/search/result",
+    path: "/search/:keywords",
     component: SearchResult,
     meta: {
       title: "搜索结果",

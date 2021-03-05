@@ -1,6 +1,6 @@
 <template>
   <ul class="list">
-    <li class="item" v-for="(item, index) in playList" :key="item.id">
+    <li class="item" v-for="(item, index) in playList" :key="index">
       <div
         class="wrapper"
         @click="setAnimate(index)"

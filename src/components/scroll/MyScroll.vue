@@ -41,6 +41,9 @@ export default {
           this.$emit("pullUp");
         }
       }
+    },
+    scrollTo(location) {
+      this.$refs.myScroll.scrollTop = location;
     }
   },
   activated() {
