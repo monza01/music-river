@@ -147,7 +147,7 @@
     <audio
       :src="musicUrl"
       ref="audio"
-      @canplay="ready"
+      @play="ready"
       @error="error"
       @timeupdate="updateTime"
       @ended="end"
@@ -277,7 +277,7 @@ export default {
           this.timer = setTimeout(() => {
             this.$refs.audio.play();
             this.getLyric();
-          }, 500);
+          }, 1000);
         } else {
           this.songLoaded = true;
           this.$refs.alert.show();
@@ -295,7 +295,7 @@ export default {
         .then(res => {
           if (res.lrc) {
             this.lyric = new Lyric(res.lrc.lyric, this.handleLyric);
-            if (this.playing) {
+            if (this.playing && this.songLoaded) {
               this.lyric.play();
               if (this.showFullLyric) {
                 this.$refs.myScroll.scrollTo(0);
@@ -369,6 +369,7 @@ export default {
       }
       if (this.playlist.length === 1) {
         this.loop();
+        return;
       } else {
         let index = this.currentIndex + 1;
         if (index === this.playlist.length) {
