@@ -87,7 +87,7 @@ export default {
           avatar: res.profile.avatarUrl
         });
         this.$cookies.set("userCookie", res.cookie);
-        this.$router.push("/discover").catch(err => err);
+        this.$router.push("/profile").catch(err => err);
       } else {
         this.alertType = "warn";
         this.alertText = res.msg;

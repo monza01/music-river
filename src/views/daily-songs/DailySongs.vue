@@ -11,12 +11,14 @@
           <div class="list-detail">
             <loader v-if="loading"></loader>
             <div v-else class="list-content">
-              <div class="play-all">
-                <span class="icon-play-circle"></span>
-                播放全部
-                <span class="count">（{{ dailySongs.length }}首）</span>
-              </div>
-              <music-list :cover="true" :playList="dailySongs"></music-list>
+              <play-all-button :music-list="dailySongs"> </play-all-button>
+              <music-list
+                @select="selectItem"
+                :cover="true"
+                :playList="dailySongs"
+                :special-index="false"
+                :current-playing="currentPlaying"
+              ></music-list>
             </div>
           </div>
         </div>
@@ -28,7 +30,9 @@
 <script>
 import BgContainer from "@/components/bg-container/BgContainer";
 import MusicList from "@/components/lists/MusicList";
+import PlayAllButton from "@/views/common/PlayAllButton";
 import { getDailySongs } from "@/api/common";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "DailySongs",
@@ -45,12 +49,14 @@ export default {
   },
   components: {
     BgContainer,
-    MusicList
+    MusicList,
+    PlayAllButton
   },
   created() {
     this.getDailySongs();
   },
   methods: {
+    ...mapActions(["selectPlay"]),
     getDailySongs() {
       getDailySongs().then(res => {
         this.dailySongs = res.data.dailySongs;
@@ -63,14 +69,30 @@ export default {
         num = "0" + num;
       }
       return num;
+    },
+    selectItem(item, index) {
+      this.selectPlay({
+        list: this.dailySongs,
+        index: index
+      });
     }
   },
   computed: {
+    ...mapGetters(["playlist", "currentIndex"]),
     day() {
       return this.formatNum(this.date.getDate());
     },
     month() {
       return this.formatNum(this.date.getMonth() + 1);
+    },
+    currentPlaying() {
+      if (this.playlist.length > 0) {
+        return this.dailySongs.findIndex(item => {
+          return item.id === this.playlist[this.currentIndex].id;
+        });
+      } else {
+        return -1;
+      }
     }
   }
 };
@@ -102,20 +124,7 @@ export default {
   background-color: $gray-light;
   padding: 0 0.15rem;
   .play-all {
-    display: flex;
     padding: 0.1rem 0;
-    align-items: center;
-    font-size: $font-size-m;
-    .icon-play-circle {
-      padding-right: 0.05rem;
-      font-size: $font-size-xl;
-      color: $theme;
-    }
-    .count {
-      font-size: $font-size-xs;
-      color: $gray;
-      font-weight: 700;
-    }
   }
 }
 </style>

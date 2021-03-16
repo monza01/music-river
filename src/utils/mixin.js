@@ -1,6 +1,6 @@
 import { getChosenSongs, getTopSingers } from "@/api/common";
-
-const LIMIT = 30;
+import { mapGetters } from "vuex";
+const LIMIT = 36;
 
 export const playlistsMixin = {
   data() {
@@ -17,7 +17,7 @@ export const playlistsMixin = {
     default: "全部"
   },
   created() {
-    this.OFFSET = 30;
+    this.OFFSET = 36;
     this.getPlaylistsData();
   },
   methods: {
@@ -114,5 +114,16 @@ export const routerMixin = {
   },
   deactivated() {
     this.bus.$off(["coverClicked", "rankClicked"]);
+  }
+};
+
+export const paddingMixin = {
+  computed: {
+    ...mapGetters(["playlist"])
+  },
+  mounted() {
+    if (this.playlist.length > 0) {
+      this.$refs.myScroll.$el.style.padding = "0 0 0.5rem 0";
+    }
   }
 };

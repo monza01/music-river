@@ -34,8 +34,10 @@
 <script>
 import MyScroll from "@/components/scroll/MyScroll";
 import { getSearchResult } from "@/api/common";
+import { paddingMixin } from "@/utils/mixin";
 
 export default {
+  mixins: [paddingMixin],
   name: "Songs",
   data() {
     return {

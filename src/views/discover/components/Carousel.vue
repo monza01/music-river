@@ -7,10 +7,14 @@
       @slideChange="slideChange"
       ref="mySwiper"
     >
-      <swiper-slide v-for="banner in banners" :key="banner.id">
-        <a :href="banner.url"
-          ><img class="slider-img" :src="banner.pic" alt="" /> </a
-      ></swiper-slide>
+      <swiper-slide
+        v-for="banner in banners"
+        :key="banner.id"
+        @click.native="slideClicked(banner)"
+      >
+        <img class="slider-img" :src="banner.pic" alt="" />
+        <div class="type-title">{{ banner.typeTitle }}</div>
+      </swiper-slide>
       <template v-slot:pagination>
         <div class="swiper-pagination"></div>
       </template>
@@ -21,6 +25,7 @@
 <script>
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
+import { mapActions } from "vuex";
 export default {
   name: "Slider",
   props: {
@@ -52,18 +57,35 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["selectPlay"]),
     slideChange() {
       const activeIndex = this.$refs.mySwiper.$swiper.realIndex;
       this.$emit("sliderChange", activeIndex);
+    },
+    slideClicked(banner) {
+      let arr = [];
+      switch (banner.targetType) {
+        case 3000:
+          window.location = banner.url;
+          break;
+        case 1:
+          arr[0] = banner.song;
+          this.selectPlay({
+            list: arr,
+            index: 0
+          });
+          break;
+        default:
+          console.log("no id");
+      }
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.banner-wrapper {
-  height: 1.55rem;
-}
+@import "~@/assets/style/variables.scss";
+
 .slider {
   a {
     display: block;
@@ -74,6 +96,16 @@ export default {
     margin: 0 auto;
     width: 94%;
     border-radius: 0.1rem;
+  }
+  .type-title {
+    position: absolute;
+    right: 3%;
+    bottom: 0;
+    color: $white;
+    background-color: $red;
+    padding: 0.03rem 0.1rem;
+    border-top-left-radius: 0.1rem;
+    border-bottom-right-radius: 0.1rem;
   }
 }
 </style>

@@ -4,6 +4,7 @@
       :pull-up="pullUpLoad"
       @pullUp="emitPullUp"
       :remember-scroll="true"
+      ref="myScroll"
     >
       <template v-slot:scrollContent>
         <div class="lists scroll-content">
@@ -23,10 +24,10 @@
 <script>
 import MyScroll from "@/components/scroll/MyScroll";
 import SongListCover from "@/components/cover/SongListCover";
-import { routerMixin } from "@/utils/mixin";
+import { routerMixin, paddingMixin } from "@/utils/mixin";
 
 export default {
-  mixins: [routerMixin],
+  mixins: [routerMixin, paddingMixin],
   name: "CategoryPlaylists",
   components: {
     MyScroll,

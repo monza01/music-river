@@ -1,12 +1,17 @@
 <template>
   <div class="bg-container">
-    <div class="bg-wrapper"></div>
-    <img
-      class="bg-img"
-      :src="setUrl(bgImgUrl, 125, 125)"
-      alt=""
-      ref="bgImage"
-    />
+    <div class="bg-wrapper">
+      <transition name="fade">
+        <img
+          v-show="bgImgUrl"
+          class="bg-img"
+          :src="bgImgUrl"
+          alt=""
+          ref="bgImage"
+        />
+      </transition>
+      <div class="bg-img-wrapper"></div>
+    </div>
     <page-title
       :pageTitle="pageTitle"
       :needBackBtn="needBackBtn"
@@ -18,9 +23,10 @@
       :listenScroll="true"
       @scroll="handleScroll"
       class="my-scroll"
+      ref="myScroll"
     >
       <template v-slot:scrollContent>
-        <slot></slot>
+        <slot class="test"></slot>
       </template>
     </my-scroll>
   </div>
@@ -31,8 +37,10 @@ import MyScroll from "@/components/scroll/MyScroll";
 import PageTitle from "@/components/title/PageTitle";
 import { prefixStyle } from "@/utils/dom";
 const transform = prefixStyle("transform");
+import { paddingMixin } from "@/utils/mixin";
 
 export default {
+  mixins: [paddingMixin],
   name: "BgContainer",
   props: {
     bgImgUrl: {
@@ -67,7 +75,6 @@ export default {
       this.scrollY = pos;
     }
   },
-  computed: {},
   watch: {
     scrollY(newVal) {
       let scale = 1;
@@ -85,6 +92,7 @@ export default {
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
 @import "~@/assets/style/mixin.scss";
+@import "~@/assets/style/transition.scss";
 
 .bg-container {
   position: relative;
@@ -95,12 +103,18 @@ export default {
     position: absolute;
     top: 0;
     background-color: #bababa;
+    .bg-img {
+      width: 130%;
+      transform: translate3d(-10%, -10%, 0);
+      filter: blur(40px);
+    }
+    .bg-img-wrapper {
+      @include wh(100%, 100%);
+      @include position();
+      background-color: rgba(0, 0, 0, 0.3);
+    }
   }
-  .bg-img {
-    width: 130%;
-    transform: translate3d(-10%, -10%, 0);
-    filter: blur(40px);
-  }
+
   .the-page-title {
     position: absolute;
     top: 0;

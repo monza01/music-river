@@ -42,8 +42,7 @@ export default {
 
 .playlist-summary {
   display: flex;
-  justify-content: space-between;
-  padding: 0.1rem 0.15rem 0.45rem;
+  padding: 0.1rem 0.15rem 0.25rem;
   .cover {
     @include box(1.05rem, 1.2rem, 0.1rem);
     position: relative;
@@ -71,7 +70,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     width: 60%;
-    color: #ded4d3;
+    color: $white;
     padding: 0.2rem 0 0.1rem;
     .list-name {
       line-height: 0.2rem;

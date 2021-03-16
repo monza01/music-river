@@ -25,26 +25,62 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-heart:before {
+  content: "\e90e";
+}
 .icon-cancel:before {
   content: "\e903";
 }
 .icon-play:before {
   content: "\e901";
 }
+.icon-pause_circle_outline:before {
+  content: "\e907";
+}
+.icon-play_circle_outline:before {
+  content: "\e908";
+}
+.icon-repeat:before {
+  content: "\e909";
+}
+.icon-repeat_one:before {
+  content: "\e90a";
+}
+.icon-shuffle:before {
+  content: "\e90b";
+}
+.icon-skip_next:before {
+  content: "\e90c";
+}
+.icon-skip_previous:before {
+  content: "\e90d";
+}
+.icon-power-outline:before {
+  content: "\e910";
+}
+.icon-queue_music:before {
+  content: "\e90f";
+}
+.icon-audiotrack:before {
+  content: "\e911";
+}
 .icon-dots-three-vertical:before {
   content: "\e902";
+}
+.icon-triangle-up:before {
+  content: "\e904";
+}
+.icon-triangle-down:before {
+  content: "\e906";
 }
 .icon-headphones:before {
   content: "\e900";
 }
-.icon-report:before {
-  content: "\e905";
-}
-.icon-folder-plus:before {
-  content: "\e931";
-}
 .icon-fire:before {
   content: "\e9a9";
+}
+.icon-search:before {
+  content: "\f002";
 }
 .icon-search:before {
   content: "\f002";
@@ -54,9 +90,6 @@
 }
 .icon-list:before {
   content: "\f03a";
-}
-.icon-indent:before {
-  content: "\f03c";
 }
 .icon-angle-right:before {
   content: "\f105";
@@ -73,18 +106,10 @@
 .icon-angle-down:before {
   content: "\f107";
 }
-.icon-random:before {
-  content: "\f074";
-}
 .icon-heartbeat:before {
   content: "\f21e";
 }
-.icon-triangle-up:before {
-  content: "\e904";
-}
-.icon-triangle-down:before {
-  content: "\e906";
-}
+
 
 
 

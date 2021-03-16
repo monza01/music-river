@@ -1,5 +1,9 @@
 import request from "@/utils/http";
 
+export function getBanner() {
+  return request.get("/banner?type=2");
+}
+
 export function getPlaylist(params) {
   return request.get("/playlist/detail", { params });
 }
@@ -46,4 +50,12 @@ export function getSearchSuggestion(params) {
 
 export function getSearchResult(params) {
   return request.post("/cloudsearch", params);
+}
+
+export function getMusicUrl(params) {
+  return request.post("/song/url", params);
+}
+
+export function getLyric(params) {
+  return request.post("/lyric", params);
 }

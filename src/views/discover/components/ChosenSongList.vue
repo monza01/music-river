@@ -60,8 +60,7 @@ export default {
 
 .chosen-song-list {
   background-color: $white;
-  height: 4.1rem;
-  padding: 0.15rem 0.15rem 0.15rem 0.1rem;
+  padding: 0.15rem 0.05rem 0.1rem;
   border-bottom-left-radius: 0.1rem;
   border-bottom-right-radius: 0.1rem;
   .covers {

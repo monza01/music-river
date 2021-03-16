@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "vue-cookies";
+import store from "../store";
 
 const timeStamp = () => {
   return new Date().getTime();
@@ -34,6 +35,7 @@ instance.interceptors.request.use(
     return config;
   },
   error => {
+    store.commit("SET_ALERT", true);
     return Promise.reject(error);
   }
 );
@@ -51,6 +53,8 @@ instance.interceptors.response.use(
       const res = error.response.data;
       return Promise.reject(res);
     } else {
+      console.log(22);
+      store.commit("SET_ALERT", true);
       return Promise.reject(error);
     }
   }

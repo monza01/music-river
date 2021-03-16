@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <nav-item title="今日推荐" link="/daily">
+    <nav-item title="今日推荐" :link="dailyItemLink">
       <template v-slot:icon>
         <img src="~@/assets/images/icon/calendar.png" alt="" />
       </template>
@@ -25,10 +25,18 @@
 
 <script>
 import NavItem from "@/components/nav-item/NavItem";
+import { mapGetters } from "vuex";
+
 export default {
   name: "Navigation",
   components: {
     NavItem
+  },
+  computed: {
+    ...mapGetters(["logged"]),
+    dailyItemLink() {
+      return this.logged ? "/daily" : "login";
+    }
   }
 };
 </script>

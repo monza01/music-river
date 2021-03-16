@@ -1,18 +1,28 @@
 <template>
   <ul class="list">
-    <li class="item" v-for="(item, index) in playList" :key="index">
+    <li
+      class="item"
+      @click="selectItem(item, index)"
+      v-for="(item, index) in playList"
+      :key="index"
+    >
       <div
         class="wrapper"
         @click="setAnimate(index)"
         :class="currentIndex === index ? 'click-animate' : ''"
       >
-        <img class="cover-img" v-lazy="setUrl(item.al.picUrl, 40, 40)" alt="" />
+        <img
+          v-if="showCover"
+          class="cover-img"
+          v-lazy="setUrl(item.al.picUrl, 40, 40)"
+          alt=""
+        />
         <div class="index" :class="isTop3(index)">
           {{ indexFormat(index) }}
         </div>
-        <div class="msg">
+        <div class="msg" :class="setMsgClass(index)">
           <p class="song-name">{{ item.name }}</p>
-          <div class="sub-msg">
+          <div class="sub-msg" :class="setMsgClass(index)">
             <span v-if="item.copyright" class="copyright">VIP</span>
             <span v-for="(artist, index) in item.ar" :key="index"
               >{{ artist.name }}<span v-if="item.ar.length > index + 1">/</span>
@@ -20,7 +30,11 @@
             <span> - {{ item.al.name }}</span>
           </div>
         </div>
-        <span class="icon-dots-three-vertical"></span>
+        <span
+          v-if="setIconClass(index)"
+          class="playing-icon"
+          :class="setIconClass(index)"
+        ></span>
       </div>
     </li>
   </ul>
@@ -37,16 +51,16 @@ export default {
     };
   },
   props: {
-    playList: {
-      type: Array,
-      default: () => {
-        return [];
-      }
-    },
+    playList: Array,
     specialIndex: {
       type: Boolean,
       default: true
-    }
+    },
+    showCover: {
+      type: Boolean,
+      default: true
+    },
+    currentPlaying: Number
   },
   computed: {
     indexFormat() {
@@ -69,6 +83,15 @@ export default {
       if (this.specialIndex) {
         return index <= 2 ? "top3" : "";
       }
+    },
+    selectItem(item, index) {
+      this.$emit("select", item, index);
+    },
+    setIconClass(index) {
+      return this.currentPlaying === index ? "icon-audiotrack" : "";
+    },
+    setMsgClass(index) {
+      return this.currentPlaying === index ? "playing" : "";
     }
   }
 };
@@ -83,12 +106,11 @@ export default {
 }
 .wrapper {
   display: flex;
-  justify-content: space-between;
+  position: relative;
   height: 0.6rem;
   padding-bottom: 0.1rem;
   .cover-img {
     @include box(0.4rem, 0.4rem, 0.1rem);
-    margin-right: 0.05rem;
     margin-top: 0.03rem;
   }
   .index {
@@ -98,13 +120,14 @@ export default {
     font-weight: 700;
     font-size: $font-size-m;
     color: $gray;
+    margin-left: 0.05rem;
   }
   .top3 {
     color: $red;
   }
   .msg {
     display: flex;
-    width: 68%;
+    width: 70%;
     flex-direction: column;
     justify-content: space-around;
     padding: 0 0.1rem 0 0.1rem;
@@ -112,6 +135,7 @@ export default {
       @include no-wrap;
       font-size: $font-size-m;
       font-weight: 500;
+      height: 18px;
     }
     .sub-msg {
       @include no-wrap;
@@ -119,25 +143,31 @@ export default {
       color: $gray-deep;
       height: 0.15rem;
       .copyright {
-        @include border($red);
+        @include border($theme);
         @include height(0.14rem);
         display: inline-block;
         padding: 0 0.03rem;
         margin-right: 0.05rem;
         border-radius: 0.04rem;
-        color: $red;
+        color: $theme;
         font-size: 10px;
         text-align: center;
       }
     }
   }
 }
-
-.icon-dots-three-vertical {
-  font-size: $font-size-s;
+.playing-icon {
+  width: 0.25rem;
+  font-size: 26px;
   line-height: 0.6rem;
-  color: $gray;
-  padding: 0 0.1rem;
+  color: $theme;
+  animation-name: playing;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.playing {
+  color: $theme !important;
 }
 
 .click-animate {
@@ -150,6 +180,15 @@ export default {
     transform: scale(0.95);
   }
 
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes playing {
+  50% {
+    transform: scale(0.5);
+  }
   100% {
     transform: scale(1);
   }

@@ -13,6 +13,8 @@
           class="scroll-content"
           :play-list="list"
           :special-index="false"
+          @select="selectItem"
+          :current-playing="currentPlaying"
         ></music-list>
         <loader v-show="loading" class="the-loader"></loader>
         <p class="bottom" v-if="!more">到底啦 ！</p>
@@ -25,8 +27,11 @@
 import MyScroll from "@/components/scroll/MyScroll";
 import MusicList from "@/components/lists/MusicList";
 import { getSearchResult } from "@/api/common";
+import { mapActions, mapGetters } from "vuex";
+import { paddingMixin } from "@/utils/mixin";
 
 export default {
+  mixins: [paddingMixin],
   name: "Songs",
   data() {
     return {
@@ -49,6 +54,7 @@ export default {
     this.getSearchResult(this.keywords);
   },
   methods: {
+    ...mapActions(["selectPlay"]),
     getSearchResult(keywords) {
       this.loading = true;
       getSearchResult({
@@ -79,6 +85,24 @@ export default {
           }
           this.loading = false;
         });
+      }
+    },
+    selectItem(item, index) {
+      this.selectPlay({
+        list: this.list,
+        index
+      });
+    }
+  },
+  computed: {
+    ...mapGetters(["playlist", "currentIndex"]),
+    currentPlaying() {
+      if (this.playlist.length > 0) {
+        return this.list.findIndex(item => {
+          return item.id === this.playlist[this.currentIndex].id;
+        });
+      } else {
+        return -1;
       }
     }
   },

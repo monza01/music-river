@@ -1,5 +1,5 @@
 <template>
-  <my-scroll class="my-scroll" :remember-scroll="true">
+  <my-scroll class="my-scroll" :remember-scroll="true" ref="myScroll">
     <template v-slot:scrollContent>
       <loader v-if="loading" class="the-loader"></loader>
       <div v-else class="content">
@@ -15,8 +15,10 @@
 <script>
 import MyScroll from "@/components/scroll/MyScroll";
 import SingerList from "@/components/lists/SingerList";
+import { paddingMixin } from "@/utils/mixin";
 
 export default {
+  mixins: [paddingMixin],
   name: "CategorySingers",
   props: {
     singers: Array,

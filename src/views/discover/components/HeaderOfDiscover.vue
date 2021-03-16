@@ -1,7 +1,7 @@
 <template>
   <div class="header">
-    <div class="lists">
-      <span class="icon-indent"></span>
+    <div class="lists" @click="listIconClicked">
+      <span class="icon-queue_music"></span>
     </div>
     <div class="searchBox" @click="searchClicked">
       <span class="icon-search"></span>
@@ -31,6 +31,9 @@ export default {
     },
     searchClicked() {
       this.$emit("searchClicked");
+    },
+    listIconClicked() {
+      this.$emit("listIconClicked");
     }
   },
   props: {
@@ -59,8 +62,8 @@ export default {
     @include box(0.3rem, 0.3rem);
   }
   .lists {
-    .icon-indent {
-      font-size: $font-size-xl;
+    .icon-queue_music {
+      font-size: $font-size-xxl;
     }
   }
   .searchBox {

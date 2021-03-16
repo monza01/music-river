@@ -3,28 +3,50 @@
     <h3 class="title">精选榜单</h3>
     <div class="rank-name">
       <div>{{ rankList.name }}</div>
-      <div class="play-all">
-        <span class="icon-play-circle"></span> 播放全部
-      </div>
+      <play-all-button :music-list="rankList.tracks"></play-all-button>
     </div>
     <loader class="the-loader" v-if="!rankList.tracks"></loader>
-    <music-list :cover="true" :playList="rankList.tracks"></music-list>
+    <music-list
+      @select="selectItem"
+      :cover="true"
+      :playList="rankList.tracks"
+      :current-playing="currentPlaying"
+    ></music-list>
   </div>
 </template>
 
 <script>
 import MusicList from "@/components/lists/MusicList";
+import { mapActions, mapGetters } from "vuex";
+import PlayAllButton from "@/views/common/PlayAllButton";
 
 export default {
   name: "recommendRank",
   components: {
-    MusicList
+    MusicList,
+    PlayAllButton
   },
   props: {
-    rankList: {
-      type: Object,
-      default: () => {
-        return {};
+    rankList: Object
+  },
+  methods: {
+    ...mapActions(["selectPlay"]),
+    selectItem(item, index) {
+      this.selectPlay({
+        list: this.rankList.tracks,
+        index
+      });
+    }
+  },
+  computed: {
+    ...mapGetters(["playlist", "currentIndex"]),
+    currentPlaying() {
+      if (this.playlist.length > 0 && this.rankList.tracks) {
+        return this.rankList.tracks.findIndex(item => {
+          return item.id === this.playlist[this.currentIndex].id;
+        });
+      } else {
+        return -1;
       }
     }
   }
@@ -50,16 +72,6 @@ export default {
     padding: 0.05rem 0.15rem 0.1rem 0;
     font-size: $font-size-l;
     font-weight: 500;
-    .play-all {
-      display: flex;
-      align-items: center;
-      font-size: $font-size-m;
-      .icon-play-circle {
-        padding-right: 0.05rem;
-        font-size: $font-size-xl;
-        color: $theme;
-      }
-    }
   }
   .the-loader {
     height: 2rem;

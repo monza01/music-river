@@ -13,6 +13,7 @@
       <span>{{ profile.followeds || 0 }}</span> 粉丝
       <span>Lv.{{ level }}</span>
     </div>
+    <div v-if="logged" class="log-out icon-power-outline" @click="logout"></div>
   </div>
 </template>
 
@@ -27,6 +28,9 @@ export default {
   methods: {
     loginBtnClicked() {
       this.$emit("loginBtnClicked");
+    },
+    logout() {
+      this.$emit("logout");
     }
   }
 };
@@ -42,7 +46,6 @@ export default {
   border-radius: 0.2rem;
   padding-bottom: 0.1rem;
   background-color: $white;
-
   .avatar {
     @include box(0.8rem, 0.8rem);
     position: absolute;
@@ -77,6 +80,14 @@ export default {
     span {
       color: $black;
     }
+  }
+  .log-out {
+    position: absolute;
+    top: -0.1rem;
+    right: 0;
+    font-size: $font-size-xxl;
+    color: $red;
+    padding: 0.1rem;
   }
 }
 </style>

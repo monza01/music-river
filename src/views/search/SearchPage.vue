@@ -33,7 +33,7 @@
 
 <script>
 import { getHotSearch } from "@/api/common";
-import Search from "@/components/search/Search";
+import Search from "@/views/common/Search";
 import { mapMutations } from "vuex";
 
 export default {

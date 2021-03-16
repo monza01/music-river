@@ -1,5 +1,6 @@
 <template>
   <div v-if="show" id="app" class="container">
+    <alert :always="true" ref="alert"></alert>
     <transition :name="transitionName">
       <keep-alive :include="['Discover', 'Profile', ...cacheViews]">
         <router-view> </router-view>
@@ -8,39 +9,45 @@
     <transition name="up-down">
       <tab-bar v-show="showTab"></tab-bar>
     </transition>
-    <player v-show="false"></player>
+    <player></player>
   </div>
 </template>
 
 <script>
-import TabBar from "@/components/tab/TabBar";
-import Player from "@/components/player/Player";
-import { checkUserStatus } from "@/api/user";
-import { mapActions, mapGetters } from "vuex";
+import TabBar from "@/views/common/TabBar";
+import Player from "@/views/player/Player";
+import { getUserAccount } from "@/api/user";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import Alert from "@/components/popup/Alert";
 
 export default {
   components: {
     TabBar,
-    Player
+    Player,
+    Alert
   },
   data() {
     return {
       transitionName: "",
-      show: false,
-      showTab: true
+      show: false
     };
   },
   created() {
-    this.checkUserStatus();
+    this.checkUser();
   },
   updated() {
-    this.showTab =
-      this.$route.path === "/discover" || this.$route.path === "/profile";
+    const path = this.$route.path;
+    if (path === "/discover" || path === "/profile") {
+      this.SET_SHOW_TAB(true);
+    } else {
+      this.SET_SHOW_TAB(false);
+    }
   },
   methods: {
     ...mapActions(["manageUser"]),
-    checkUserStatus() {
-      checkUserStatus().then(res => {
+    ...mapMutations(["SET_SHOW_TAB", "SET_ALERT"]),
+    checkUser() {
+      getUserAccount().then(res => {
         if (res.account) {
           this.manageUser({
             status: true,
@@ -53,7 +60,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["cacheViews"])
+    ...mapGetters(["cacheViews", "showTab", "alert"])
   },
   watch: {
     $route(to, from) {
@@ -64,6 +71,12 @@ export default {
       } else {
         this.transitionName = "";
       }
+    },
+    alert(newFlag) {
+      if (newFlag && this.$refs.alert) {
+        this.$refs.alert.show();
+      }
+      this.SET_ALERT(false);
     }
   }
 };
@@ -71,4 +84,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/transition.scss";
+#app {
+  position: relative;
+}
 </style>

@@ -43,18 +43,17 @@ export default {
 
 .recommend-song-list {
   background-color: $white;
-  padding: 0.15rem 0.15rem 0.15rem 0.1rem;
+  padding: 0.15rem 0.05rem 0.05rem;
   margin-top: 0.1rem;
   border-radius: 0.1rem;
   .outer-wrapper {
-    height: 3.2rem;
     overflow-y: hidden;
     .wrapper {
-      height: 3.4rem;
+      padding-bottom: 0.2rem;
       overflow-y: hidden;
       .covers {
         display: flex;
-        width: 189%;
+        width: 188%;
         flex-wrap: wrap;
       }
     }

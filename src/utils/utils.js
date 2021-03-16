@@ -26,5 +26,16 @@ export function formatIndex(index) {
 }
 
 export function randomNum(n, m) {
-  return Math.floor(Math.random() * (m - n + 1)) + n;
+  return Math.floor(Math.random() * (m - n + 1) + n);
+}
+
+export function shuffle(arr) {
+  let _arr = arr.slice();
+  for (let i = 0; i < _arr.length; i++) {
+    let j = randomNum(0, i);
+    let temp = arr[i];
+    _arr[i] = _arr[j];
+    _arr[j] = temp;
+  }
+  return _arr;
 }

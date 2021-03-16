@@ -32,7 +32,7 @@
 
 <script>
 import MiniTabBar from "@/components/tab/MiniTabBar";
-import Search from "@/components/search/Search";
+import Search from "@/views/common/Search";
 import Songs from "@/views/search/components/Songs";
 import Singers from "@/views/search/components/Singers";
 import { mapMutations } from "vuex";

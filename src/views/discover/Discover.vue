@@ -1,6 +1,12 @@
 <template>
   <div class="discover-container">
     <loader v-if="loading"></loader>
+    <transition name="slide">
+      <playlist v-if="showPlaylist" @close="closePlaylist"></playlist>
+    </transition>
+    <transition name="fade-fast">
+      <div v-if="showPlaylist" class="wrapper" @click="closePlaylist"></div>
+    </transition>
     <my-scroll
       :remember-scroll="true"
       :listen-scroll="listenScroll"
@@ -14,6 +20,7 @@
               @loginClicked="loginClicked"
               @avatarClicked="avatarClicked"
               @searchClicked="searchClicked"
+              @listIconClicked="listIconClicked"
               :avatar="logged ? userAvatar : ''"
             ></header-of-discover>
             <img class="header-bg" :src="currentImgURL" width="100%" alt="" />
@@ -53,13 +60,12 @@
 
 <script>
 import axios from "axios";
-import { getBanner } from "@/api/discover";
 import {
   getChosenSongs,
   getRecommendSongList,
   getRankSummary
 } from "@/api/common";
-import { getPlaylist } from "@/api/common";
+import { getPlaylist, getBanner } from "@/api/common";
 import { randomNum } from "@/utils/utils";
 import MyScroll from "@/components/scroll/MyScroll";
 import HeaderOfDiscover from "@/views/discover/components/HeaderOfDiscover";
@@ -69,6 +75,7 @@ import RecommendSongList from "@/views/discover/components/RecommendSongList";
 import ChosenSongList from "@/views/discover/components/ChosenSongList";
 import RankSummary from "@/views/discover/components/RankSummary";
 import RecommendRank from "@/views/discover/components/RecommendRank";
+import Playlist from "@/views/common/Playlist";
 import { mapGetters } from "vuex";
 import { routerMixin } from "@/utils/mixin";
 
@@ -83,11 +90,13 @@ export default {
     RecommendSongList,
     ChosenSongList,
     RankSummary,
-    RecommendRank
+    RecommendRank,
+    Playlist
   },
   data() {
     return {
       loading: false,
+      showPlaylist: false,
       banners: [],
       currentImgURL: "",
       recommendSongList: [],
@@ -155,6 +164,12 @@ export default {
         this.rankPlayList.tracks = this.rankPlayList.tracks.slice(0, 20);
       });
     },
+    listIconClicked() {
+      this.showPlaylist = true;
+    },
+    closePlaylist() {
+      this.showPlaylist = false;
+    },
     loginClicked() {
       this.$router.push("/login").catch(err => err);
     },
@@ -217,11 +232,20 @@ export default {
 <style scoped lang="scss">
 @import "~@/assets/style/variables.scss";
 @import "~@/assets/style/mixin.scss";
+@import "~@/assets/style/transition.scss";
+
 .discover-container {
-  height: calc(100% - 0.6rem);
+  height: calc(100% - 60px);
 }
 .discover {
   background-color: $gray-light;
+}
+.wrapper {
+  @include wh(100%, 100%);
+  position: absolute;
+  top: 0;
+  z-index: 998;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .header-bg {
   position: absolute;
@@ -237,7 +261,6 @@ export default {
 .head {
   background-color: $white;
   .carousel {
-    height: 1.91rem;
     padding-top: 0.5rem;
   }
 }

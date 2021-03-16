@@ -1,42 +1,44 @@
 <template>
   <div class="rank-lists container">
     <page-title page-title="排行榜"></page-title>
-    <loader v-if="loading"></loader>
-    <div v-if="!loading" class="top-lists">
-      <my-scroll :remember-scroll="true">
+    <div class="top-lists">
+      <my-scroll :remember-scroll="true" ref="myScroll">
         <template v-slot:scrollContent>
-          <div class="list-container">
-            <h3 class="title">推荐榜单</h3>
-            <div class="recommended">
-              <song-list-cover
-                v-for="item in recommended"
-                :key="item.id"
-                :detail="item"
-                sub-msg-type="updateFrequency"
-                @coverClicked="toRankDetail"
-              ></song-list-cover>
+          <loader v-if="loading"></loader>
+          <div v-else class="scroll-content">
+            <div class="list-container">
+              <h3 class="title">推荐榜单</h3>
+              <div class="recommended">
+                <song-list-cover
+                  v-for="item in recommended"
+                  :key="item.id"
+                  :detail="item"
+                  sub-msg-type="updateFrequency"
+                  @coverClicked="toRankDetail"
+                ></song-list-cover>
+              </div>
             </div>
-          </div>
-          <div class="list-container">
-            <h3 class="title">官方榜单</h3>
-            <div class="official">
-              <top3
-                v-for="(item, index) in official"
-                :key="item.id"
-                :list-data="item"
-                :bg-color="bgColor[index]"
-              ></top3>
+            <div class="list-container">
+              <h3 class="title">官方榜单</h3>
+              <div class="official">
+                <top3
+                  v-for="(item, index) in official"
+                  :key="item.id"
+                  :list-data="item"
+                  :bg-color="bgColor[index]"
+                ></top3>
+              </div>
             </div>
-          </div>
-          <div class="list-container">
-            <h3 class="title">精选榜单</h3>
-            <div class="chosen">
-              <song-list-cover
-                v-for="item in chosen"
-                :key="item.id"
-                :detail="item"
-                sub-msg-type="updateFrequency"
-              ></song-list-cover>
+            <div class="list-container">
+              <h3 class="title">精选榜单</h3>
+              <div class="chosen">
+                <song-list-cover
+                  v-for="item in chosen"
+                  :key="item.id"
+                  :detail="item"
+                  sub-msg-type="updateFrequency"
+                ></song-list-cover>
+              </div>
             </div>
           </div>
         </template>
@@ -51,11 +53,11 @@ import PageTitle from "@/components/title/PageTitle";
 import MyScroll from "@/components/scroll/MyScroll";
 import SongListCover from "@/components/cover/SongListCover";
 import Top3 from "@/components/lists/Top3";
-import { routerMixin } from "@/utils/mixin";
+import { routerMixin, paddingMixin } from "@/utils/mixin";
 import { mapMutations } from "vuex";
 
 export default {
-  mixins: [routerMixin],
+  mixins: [routerMixin, paddingMixin],
   name: "Ranks",
   data() {
     return {

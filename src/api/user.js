@@ -9,6 +9,10 @@ export function loginWithEmail(data) {
 }
 
 export function checkUserStatus() {
+  return request.get("/login/status");
+}
+
+export function getUserAccount() {
   return request.get("/user/account");
 }
 
@@ -22,4 +26,16 @@ export function getRecord(params) {
 
 export function getUserPlaylists(params) {
   return request.get("/user/playlist", { params });
+}
+
+export function getLikeList(params) {
+  return request.get("/likelist", { params });
+}
+
+export function likeMusic(params) {
+  return request.get("/like", { params });
+}
+
+export function logout() {
+  return request.get("/logout");
 }

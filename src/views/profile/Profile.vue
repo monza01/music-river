@@ -16,6 +16,7 @@
             :profile="profile"
             :level="level"
             @loginBtnClicked="toLoginPage"
+            @logout="logout"
           ></user-card>
           <div class="favorite" @click="toPlayListDetail(favoriteSongs.id)">
             <img
@@ -34,9 +35,6 @@
               <p class="name-msg">我喜欢的音乐</p>
               <p class="sub-msg">{{ favoriteSongs.trackCount || 0 }}首</p>
             </div>
-            <div class="heart-beat-mode">
-              <span class="icon-heartbeat"></span> 心动模式
-            </div>
           </div>
           <div class="created">
             <div class="the-title">
@@ -52,7 +50,12 @@
           </div>
           <div class="record">
             <div class="the-title">最近播放（{{ record.length }}首）</div>
-            <music-list :special-index="false" :play-list="record"></music-list>
+            <music-list
+              @select="selectItem"
+              :special-index="false"
+              :play-list="record"
+              :current-playing="currentPlaying"
+            ></music-list>
           </div>
         </div>
       </template>
@@ -62,8 +65,8 @@
 
 <script>
 import axios from "axios";
-import { mapGetters } from "vuex";
-import { getProfile, getRecord, getUserPlaylists } from "@/api/user";
+import { mapGetters, mapActions } from "vuex";
+import { getProfile, getRecord, getUserPlaylists, logout } from "@/api/user";
 import BgContainer from "@/components/bg-container/BgContainer";
 import UserCard from "@/components/user/UserCard";
 import DiscList from "@/components/lists/DiscList";
@@ -97,9 +100,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["logged", "userId"])
+    ...mapGetters(["logged", "userId", "playlist", "currentIndex"]),
+    currentPlaying() {
+      if (this.playlist.length > 0) {
+        return this.record.findIndex(item => {
+          return item.id === this.playlist[this.currentIndex].id;
+        });
+      } else {
+        return -1;
+      }
+    }
   },
   methods: {
+    ...mapActions(["selectPlay"]),
     getData() {
       this.loading = true;
       axios
@@ -132,22 +145,37 @@ export default {
       this.$router.push("/login").catch(err => err);
     },
     toPlayListDetail(id) {
-      this.$router
-        .push({
-          path: `/playlists/detail/${id}`,
-          query: {
-            type: "music-lists"
-          }
-        })
-        .catch(err => err);
+      if (this.logged) {
+        this.$router
+          .push({
+            path: `/playlists/detail/${id}`,
+            query: {
+              type: "music-lists"
+            }
+          })
+          .catch(err => err);
+      } else {
+        this.$router.push("/login").catch(err => err);
+      }
+    },
+    selectItem(item, index) {
+      this.selectPlay({
+        list: this.record,
+        index
+      });
+    },
+    logout() {
+      logout().then(() => {
+        this.$cookies.remove("userCookie");
+        this.$router.push("/profile").catch(err => err);
+        window.location.reload();
+      });
     }
   },
   watch: {
     logged(value) {
       if (value) {
         this.getData();
-      } else {
-        window.location.reload();
       }
     }
   },

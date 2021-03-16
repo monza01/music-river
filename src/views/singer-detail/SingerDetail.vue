@@ -7,9 +7,10 @@
           <div class="list-detail">
             <loader v-if="loading"></loader>
             <div v-else class="list-content">
-              <div class="play-all">
-                <span class="icon-play-circle"></span> 播放热门 50
-              </div>
+              <play-all-button
+                text="随机播放 50"
+                :music-list="singerTopSongs"
+              ></play-all-button>
               <music-list
                 :playList="singerTopSongs"
                 :special-index="false"
@@ -26,6 +27,7 @@
 import BgContainer from "@/components/bg-container/BgContainer";
 import SingerCard from "@/views/singer-detail/components/SingerCard";
 import MusicList from "@/components/lists/MusicList";
+import PlayAllButton from "@/views/common/PlayAllButton";
 import { getSingerDetail, getSingerTopSongs } from "@/api/common";
 
 export default {
@@ -40,7 +42,8 @@ export default {
   components: {
     BgContainer,
     SingerCard,
-    MusicList
+    MusicList,
+    PlayAllButton
   },
   created() {
     this.getSingerDetail();
