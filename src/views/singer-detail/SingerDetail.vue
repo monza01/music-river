@@ -14,6 +14,8 @@
               <music-list
                 :playList="singerTopSongs"
                 :special-index="false"
+                @select="selectItem"
+                :current-playing="currentPlaying"
               ></music-list>
             </div>
           </div>
@@ -29,6 +31,7 @@ import SingerCard from "@/views/singer-detail/components/SingerCard";
 import MusicList from "@/components/lists/MusicList";
 import PlayAllButton from "@/views/common/PlayAllButton";
 import { getSingerDetail, getSingerTopSongs } from "@/api/common";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "SingerDetail",
@@ -50,6 +53,7 @@ export default {
     this.getSingerTopSongs();
   },
   methods: {
+    ...mapActions(["selectPlay"]),
     getSingerDetail() {
       getSingerDetail({
         id: this.$route.params.id
@@ -62,6 +66,24 @@ export default {
         this.singerTopSongs = res.songs;
         this.loading = false;
       });
+    },
+    selectItem(item, index) {
+      this.selectPlay({
+        list: this.singerTopSongs,
+        index
+      });
+    }
+  },
+  computed: {
+    ...mapGetters(["playlist", "currentIndex"]),
+    currentPlaying() {
+      if (this.playlist.length > 0) {
+        return this.singerTopSongs.findIndex(item => {
+          return item.id === this.playlist[this.currentIndex].id;
+        });
+      } else {
+        return -1;
+      }
     }
   }
 };

@@ -13,6 +13,7 @@ Vue.use(VueLazyLoad);
 Vue.use(VueCookies);
 Vue.$cookies.config("7d");
 Vue.component("Loader", Loader);
+
 Vue.directive("focus", {
   inserted: function(el) {
     el.focus();
