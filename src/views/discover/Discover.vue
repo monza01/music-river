@@ -48,6 +48,7 @@
           <recommend-rank
             class="recommend-rank"
             :rankList="rankPlayList"
+            ref="recommendRank"
           ></recommend-rank>
           <div v-if="rankPlayList.tracks" class="bottom">
             <span class="refresh" @click="refresh">换一批新内容</span>
@@ -113,6 +114,19 @@ export default {
   },
   created() {
     this.getFirstPageData();
+  },
+  updated() {
+    const windowHeight = window.innerHeight;
+    this.pos1 = this.$refs.recommendSL.$el.offsetTop - windowHeight - 20;
+    this.pos2 = this.$refs.recommendRank.$el.offsetTop - windowHeight - 20;
+    if (this.pos1 <= 0) {
+      this.flag1 = true;
+      this.getRecommendSongList();
+    }
+    if (this.pos2 <= 0) {
+      this.flag2 = true;
+      this.getRankPlayList();
+    }
   },
   methods: {
     getFirstPageData() {
@@ -194,11 +208,11 @@ export default {
       window.location.reload();
     },
     handleScroll(pos) {
-      if (pos >= 100 && !this.flag1) {
+      if (pos >= this.pos1 && !this.flag1) {
         this.flag1 = true;
         this.getRecommendSongList();
       }
-      if (pos >= 490 && !this.flag2) {
+      if (pos >= this.pos2 && !this.flag2) {
         this.flag2 = true;
         this.getRankPlayList();
       }

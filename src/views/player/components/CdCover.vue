@@ -45,12 +45,12 @@ export default {
 @import "~@/assets/style/mixin.scss";
 .progress-circle {
   .cd-bg {
-    @include box(50px, 50px);
+    @include box(42px, 42px);
     @include flex();
     position: absolute;
-    left: 0;
-    top: 0;
-    background-image: url("~@/assets/images/background/cd.png");
+    left: 4px;
+    top: 4px;
+    background-image: url("https://www.flaticon.com/svg/vstatic/svg/187/187518.svg?token=exp=1615932957~hmac=70b5106d3b89afdf4a1146a4af09298b");
     background-size: cover;
     background-position: center;
     .cover {

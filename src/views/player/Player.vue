@@ -2,7 +2,7 @@
   <div class="player container" v-show="playlist.length > 0">
     <alert text="暂无版权" alert-type="normal" ref="alert"></alert>
     <transition name="up-down">
-      <div class="normal-player" v-show="fullScreen">
+      <div class="normal-player container" v-show="fullScreen">
         <transition name="fade">
           <div v-show="fullScreen" class="background">
             <img
@@ -577,9 +577,9 @@ export default {
           @include flex();
           background-color: rgba(255, 255, 255, 0.2);
           .cd-bg {
-            @include box(3.2rem, 3.2rem);
+            @include box(2.8rem, 2.8rem);
             @include flex();
-            background-image: url("~@/assets/images/background/cd.png");
+            background-image: url("https://www.flaticon.com/svg/vstatic/svg/187/187518.svg?token=exp=1615932957~hmac=70b5106d3b89afdf4a1146a4af09298b");
             background-size: cover;
             background-position: center;
             .cover {

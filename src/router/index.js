@@ -1,17 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
-import Discover from "@/views/discover/Discover";
-import Profile from "@/views/profile/Profile";
-import SearchPage from "@/views/search/SearchPage";
-import Login from "@/views/login/Login";
-import Playlists from "@/views/playlists/Playlists";
-import PlaylistsDetail from "@/views/playlists-detail/PlaylistsDetail";
-import Ranks from "@/views/ranks/Ranks";
-import DailySongs from "@/views/daily-songs/DailySongs";
-import TopSingers from "@/views/top-singers/TopSingers";
-import SingerDetail from "@/views/singer-detail/SingerDetail";
-import SearchResult from "@/views/search/SearchResult";
 
 const routes = [
   {
@@ -20,7 +9,7 @@ const routes = [
   },
   {
     path: "/discover",
-    component: Discover,
+    component: () => import("@/views/discover/Discover"),
     meta: {
       title: "发现",
       index: 0
@@ -28,7 +17,7 @@ const routes = [
   },
   {
     path: "/profile",
-    component: Profile,
+    component: () => import("@/views/profile/Profile"),
     meta: {
       title: "我的",
       index: 0
@@ -36,7 +25,7 @@ const routes = [
   },
   {
     path: "/search",
-    component: SearchPage,
+    component: () => import("@/views/search/SearchPage"),
     meta: {
       title: "搜索",
       index: 0
@@ -44,7 +33,7 @@ const routes = [
   },
   {
     path: "/login",
-    component: Login,
+    component: () => import("@/views/login/Login"),
     meta: {
       title: "登录",
       index: 1
@@ -52,7 +41,7 @@ const routes = [
   },
   {
     path: "/playlists",
-    component: Playlists,
+    component: () => import("@/views/playlists/Playlists"),
     meta: {
       title: "歌单广场",
       index: 1
@@ -60,7 +49,7 @@ const routes = [
   },
   {
     path: "/ranks",
-    component: Ranks,
+    component: () => import("@/views/ranks/Ranks"),
     meta: {
       title: "排行榜",
       index: 1
@@ -68,7 +57,7 @@ const routes = [
   },
   {
     path: "/daily",
-    component: DailySongs,
+    component: () => import("@/views/daily-songs/DailySongs"),
     meta: {
       title: "今日推荐",
       index: 1
@@ -76,7 +65,7 @@ const routes = [
   },
   {
     path: "/singers",
-    component: TopSingers,
+    component: () => import("@/views/top-singers/TopSingers"),
     meta: {
       title: "歌手榜",
       index: 1
@@ -84,7 +73,7 @@ const routes = [
   },
   {
     path: "/singer/detail/:id",
-    component: SingerDetail,
+    component: () => import("@/views/singer-detail/SingerDetail"),
     meta: {
       title: "歌手详情",
       index: 2
@@ -92,7 +81,7 @@ const routes = [
   },
   {
     path: "/playlists/detail/:id",
-    component: PlaylistsDetail,
+    component: () => import("@/views/playlists-detail/PlaylistsDetail"),
     meta: {
       title: "歌单详情",
       index: 2
@@ -100,7 +89,7 @@ const routes = [
   },
   {
     path: "/search/:keywords",
-    component: SearchResult,
+    component: () => import("@/views/search/SearchResult"),
     meta: {
       title: "搜索结果",
       index: 1
