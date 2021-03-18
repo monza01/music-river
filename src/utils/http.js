@@ -53,7 +53,6 @@ instance.interceptors.response.use(
       const res = error.response.data;
       return Promise.reject(res);
     } else {
-      console.log(22);
       store.commit("SET_ALERT", true);
       return Promise.reject(error);
     }

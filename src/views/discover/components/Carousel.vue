@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import "swiper/css/swiper.css";
 import { mapActions } from "vuex";
 export default {
   name: "Slider",
@@ -36,10 +34,7 @@ export default {
       }
     }
   },
-  components: {
-    Swiper,
-    SwiperSlide
-  },
+
   data() {
     return {
       swiperOption: {
@@ -76,7 +71,7 @@ export default {
           });
           break;
         default:
-          console.log("no id");
+          break;
       }
     }
   }

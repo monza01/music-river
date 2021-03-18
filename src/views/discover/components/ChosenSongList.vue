@@ -26,17 +26,13 @@
 import TheTitle from "@/components/title/Title";
 import Cover from "@/components/cover/SongListCover";
 import MiniTabBar from "@/components/tab/MiniTabBar";
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import "swiper/css/swiper.css";
 
 export default {
   name: "ChosenSongList",
   components: {
     Cover,
     MiniTabBar,
-    TheTitle,
-    Swiper,
-    SwiperSlide
+    TheTitle
   },
   props: {
     chosenSongList: Object,
