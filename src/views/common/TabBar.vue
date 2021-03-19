@@ -32,7 +32,8 @@ export default {
   },
   data() {
     return {
-      currentRoute: this.$route.path
+      currentRoute: this.$route.path,
+      flag: true
     };
   },
   computed: {
@@ -47,8 +48,9 @@ export default {
     fullScreen() {
       if (this.playlist.length > 0) {
         this.SET_FULL_SCREEN(true);
-      } else {
+      } else if (this.flag) {
         this.randomMyFav();
+        this.flag = false;
       }
     },
     tabClicked(current) {

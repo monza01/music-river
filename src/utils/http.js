@@ -7,7 +7,7 @@ const timeStamp = () => {
 };
 
 const instance = axios.create({
-  baseURL: "http://10.131.1.30:3000",
+  baseURL: "https://autumnfish.cn/",
   timeout: 10000,
   withCredentials: true
 });
