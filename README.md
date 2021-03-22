@@ -17,32 +17,32 @@
 ### 项目截图
 
 <p align="middle">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/gif1.gif?raw=true" width="33%" >
-    <img src="https://github.com/monza01/project-screenshots/blob/main/1.png?raw=true" width="33%" >
-    <img src="https://github.com/monza01/project-screenshots/blob/main/2.png?raw=true" width="33%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/gif1.gif?raw=true" width="30%" >
+    <img src="https://github.com/monza01/project-screenshots/blob/main/1.png?raw=true" width="30%" >
+    <img src="https://github.com/monza01/project-screenshots/blob/main/2.png?raw=true" width="30%">
 </p>
 
 <p align="middle">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/gif2.gif?raw=true" width="33%">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/3.png?raw=true" width="33%" >
-    <img src="https://github.com/monza01/project-screenshots/blob/main/4.png?raw=true" width="33%" >
+    <img src="https://github.com/monza01/project-screenshots/blob/main/gif2.gif?raw=true" width="30%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/3.png?raw=true" width="30%" >
+    <img src="https://github.com/monza01/project-screenshots/blob/main/4.png?raw=true" width="30%" >
 </p>
 
 <p align="middle">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/gif3.gif?raw=true" width="33%">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/5.png?raw=true" width="33%">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/6.png?raw=true" width="33%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/gif3.gif?raw=true" width="30%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/5.png?raw=true" width="30%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/6.png?raw=true" width="30%">
 </p>
 
 <p align="middle">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/7.png?raw=true" width="33%">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/8.png?raw=true" width="33%">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/9.png?raw=true" width="33%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/7.png?raw=true" width="30%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/8.png?raw=true" width="30%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/9.png?raw=true" width="30%">
 </p>
 
 <p align="middle">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/10.png?raw=true" width="33%">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/11.png?raw=true" width="33%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/10.png?raw=true" width="30%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/11.png?raw=true" width="30%">
 </p>
 
 <p align="middle">
