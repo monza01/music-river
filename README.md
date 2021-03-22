@@ -8,7 +8,7 @@
 
 > 技术栈 : vue2.6 + vuex +  vue-router + vue cli4 + axios + es6/7 + scss   + eslint
 
-> 适配方案：rem布局 设计图为375px
+> 适配方案：rem + vw 设计图为375px
 
 > 第三方库：vue-lazyload + vue-awesome-swiper + vue-cookies +   lyric-parser
 
