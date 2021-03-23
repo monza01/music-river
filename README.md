@@ -43,7 +43,7 @@
 <p align="middle">
     <img src="https://github.com/monza01/project-screenshots/blob/main/10.png?raw=true" width="30%">
     <img src="https://github.com/monza01/project-screenshots/blob/main/11.png?raw=true" width="30%">
-    <img src="https://github.com/monza01/project-screenshots/blob/main/12png?raw=true" width="30%">
+    <img src="https://github.com/monza01/project-screenshots/blob/main/12.png?raw=true" width="30%">
 </p>
 
 <p align="middle">
